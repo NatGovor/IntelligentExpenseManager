@@ -37,7 +37,10 @@ namespace ExpenseManager_Server
                     = Configuration.GetSection("MongoConnection:Database").Value;
             });
 
-            services.AddTransient<IExpenseRepository, ExpenseRepository>();
+            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IRepository<Group>, GroupRepository>();
+            services.AddTransient<IRepository<Expense>, ExpenseRepository>();
+            services.AddTransient<IRepository<SharedExpense>, SharedExpenseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

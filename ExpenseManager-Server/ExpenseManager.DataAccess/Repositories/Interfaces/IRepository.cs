@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Interfaces
 {
-    public interface IExpenseRepository
+    public interface IRepository<T>
     {
-        IEnumerable<Expense> GetAllExpenses();
+        IEnumerable<T> GetAll();
     }
 }

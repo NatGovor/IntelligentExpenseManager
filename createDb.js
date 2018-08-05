@@ -204,23 +204,19 @@ db.groups.insert([
         friends: [
             {
                 userId: users[0]._id,
-                name: users[0].name,
-                email: users[0].email
+                name: users[0].name
             },
             {
                 userId: users[2]._id,
-                name: users[2].name,
-                email: users[2].email
+                name: users[2].name
             },
             {
                 userId: users[3]._id,
-                name: users[3].name,
-                email: users[3].email
+                name: users[3].name
             },
             {
                 userId: users[7]._id,
-                name: users[7].name,
-                email: users[7].email
+                name: users[7].name
             }
         ]
     },
@@ -230,13 +226,11 @@ db.groups.insert([
         friends: [
             {
                 userId: users[0]._id,
-                name: users[0].name,
-                email: users[0].email
+                name: users[0].name
             },
             {
                 userId: users[1]._id,
-                name: users[1].name,
-                email: users[1].email
+                name: users[1].name
             }
         ]
     },
@@ -246,13 +240,11 @@ db.groups.insert([
         friends: [
             {
                 userId: users[0]._id,
-                name: users[0].name,
-                email: users[0].email
+                name: users[0].name
             },
             {
                 userId: users[6]._id,
-                name: users[6].name,
-                email: users[6].email
+                name: users[6].name
             }
         ]
     }
@@ -269,11 +261,11 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 50
             },
             {
-                userId: 6,
+                userId: users[6]._id,
                 amount: 50
             }
         ]
@@ -286,11 +278,11 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 25
             },
             {
-                userId: 6,
+                userId: users[6]._id,
                 amount: 25
             }
         ]
@@ -303,19 +295,19 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 46
             },
             {
-                userId: 2,
+                userId: users[2]._id,
                 amount: 46
             },
             {
-                userId: 3,
+                userId: users[3]._id,
                 amount: 46
             },
             {
-                userId: 7,
+                userId: users[7]._id,
                 amount: 46
             }
         ]
@@ -328,19 +320,19 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 3.75
             },
             {
-                userId: 2,
+                userId: users[2]._id,
                 amount: 3.75
             },
             {
-                userId: 3,
+                userId: users[3]._id,
                 amount: 3.75
             },
             {
-                userId: 7,
+                userId: users[7]._id,
                 amount: 3.75
             }
         ]
@@ -353,19 +345,19 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 5
             },
             {
-                userId: 2,
+                userId: users[2]._id,
                 amount: 5
             },
             {
-                userId: 3,
+                userId: users[3]._id,
                 amount: 5
             },
             {
-                userId: 7,
+                userId: users[7]._id,
                 amount: 5
             }
         ]
@@ -378,19 +370,19 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 10
             },
             {
-                userId: 2,
+                userId: users[2]._id,
                 amount: 10
             },
             {
-                userId: 3,
+                userId: users[3]._id,
                 amount: 10
             },
             {
-                userId: 7,
+                userId: users[7]._id,
                 amount: 10
             }
         ]
@@ -403,19 +395,19 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 5
             },
             {
-                userId: 2,
+                userId: users[2]._id,
                 amount: 5
             },
             {
-                userId: 3,
+                userId: users[3]._id,
                 amount: 5
             },
             {
-                userId: 7,
+                userId: users[7]._id,
                 amount: 5
             }
         ]
@@ -428,19 +420,19 @@ db.sharedExpenses.insert([
         splitType: 'equal',
         debtors: [
             {
-                userId: 0,
+                userId: users[0]._id,
                 amount: 21
             },
             {
-                userId: 2,
+                userId: users[2]._id,
                 amount: 21
             },
             {
-                userId: 3,
+                userId: users[3]._id,
                 amount: 21
             },
             {
-                userId: 7,
+                userId: users[7]._id,
                 amount: 21
             }
         ]

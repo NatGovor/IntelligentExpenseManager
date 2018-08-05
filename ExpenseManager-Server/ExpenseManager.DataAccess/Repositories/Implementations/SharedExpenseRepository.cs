@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class ExpenseRepository : IRepository<Expense>
+    public class SharedExpenseRepository : IRepository<SharedExpense>
     {
         private readonly DbContext _context = null;
 
-        public ExpenseRepository(IOptions<Settings> settings)
+        public SharedExpenseRepository(IOptions<Settings> settings)
         {
             _context = new DbContext(settings);
         }
 
-        public IEnumerable<Expense> GetAll()
+        public IEnumerable<SharedExpense> GetAll()
         {
             try
             {
-                return _context.Expenses.Find(_ => true).ToList();
+                return _context.SharedExpenses.Find(_ => true).ToList();
             }
             catch (Exception ex)
             {

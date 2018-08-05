@@ -13,9 +13,9 @@ namespace ExpenseManager_Server.Controllers
     [ApiController]
     public class ExpensesController : ControllerBase
     {
-        private readonly IExpenseRepository _expenseRepository;
+        private readonly IRepository<Expense> _expenseRepository;
 
-        public ExpensesController(IExpenseRepository expenseRepository)
+        public ExpensesController(IRepository<Expense> expenseRepository)
         {
             _expenseRepository = expenseRepository;
         }
@@ -23,7 +23,7 @@ namespace ExpenseManager_Server.Controllers
         [HttpGet]
         public ActionResult<List<Expense>> GetAll()
         {
-            return _expenseRepository.GetAllExpenses().ToList() ?? new List<Expense>();
+            return _expenseRepository.GetAll().ToList() ?? new List<Expense>();
         }
     }
 }

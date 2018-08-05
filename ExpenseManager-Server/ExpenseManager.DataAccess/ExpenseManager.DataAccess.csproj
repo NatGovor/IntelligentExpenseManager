@@ -61,12 +61,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Debtor.cs" />
     <Compile Include="Entities\Expense.cs" />
+    <Compile Include="Entities\Friend.cs" />
+    <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\Settings.cs" />
-    <Compile Include="ExpenseManagerContext.cs" />
+    <Compile Include="Entities\SharedExpense.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="DbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementations\ExpenseRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IExpenseRepository.cs" />
+    <Compile Include="Repositories\Implementations\GroupRepository.cs" />
+    <Compile Include="Repositories\Implementations\SharedExpenseRepository.cs" />
+    <Compile Include="Repositories\Implementations\UserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

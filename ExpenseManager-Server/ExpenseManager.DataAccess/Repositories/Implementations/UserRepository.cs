@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class ExpenseRepository : IRepository<Expense>
+    public class UserRepository : IRepository<User>
     {
         private readonly DbContext _context = null;
 
-        public ExpenseRepository(IOptions<Settings> settings)
+        public UserRepository(IOptions<Settings> settings)
         {
             _context = new DbContext(settings);
         }
 
-        public IEnumerable<Expense> GetAll()
+        public IEnumerable<User> GetAll()
         {
             try
             {
-                return _context.Expenses.Find(_ => true).ToList();
+                return _context.Users.Find(_ => true).ToList();
             }
             catch (Exception ex)
             {
