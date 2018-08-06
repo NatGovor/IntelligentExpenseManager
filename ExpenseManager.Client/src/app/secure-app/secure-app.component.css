@@ -1,0 +1,18 @@
+.nav {
+  background-color: #5bc5a7;
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
+}
+
+.nav-link {
+  padding: 0.2rem 0.4rem;
+  max-width: 105px;
+  text-align: center;
+}
+
+a.nav-link {
+  color: #fff;
+}
+
+a.nav-link.active {
+  border-bottom: 3px solid #fff;
+}
