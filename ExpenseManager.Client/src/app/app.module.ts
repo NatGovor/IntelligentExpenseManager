@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './unsecure-app/components/login/login.component';
+import { LoginComponent } from './unsecure-app/login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SecureAppModule } from './secure-app/secure-app.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SecureAppModule
   ],
   providers: [],
   bootstrap: [AppComponent]
