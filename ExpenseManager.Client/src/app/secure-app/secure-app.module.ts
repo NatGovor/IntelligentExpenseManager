@@ -5,6 +5,9 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { SecureAppComponent } from './secure-app.component';
 
 import { SecureAppRoutingModule } from './secure-app-routing.module';
+import { SharedExpensesComponent } from './shared-expenses/shared-expenses.component';
+import { DebtsComponent } from './debts/debts.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   imports: [
@@ -14,7 +17,10 @@ import { SecureAppRoutingModule } from './secure-app-routing.module';
   providers: [],
   declarations: [
     SecureAppComponent,
-    ExpensesComponent
+    ExpensesComponent,
+    SharedExpensesComponent,
+    DebtsComponent,
+    ReportsComponent
   ]
 })
 export class SecureAppModule { }

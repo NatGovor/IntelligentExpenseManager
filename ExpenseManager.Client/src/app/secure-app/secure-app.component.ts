@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./secure-app.component.css']
 })
 export class SecureAppComponent {
-  title = 'Secure part';
 }
