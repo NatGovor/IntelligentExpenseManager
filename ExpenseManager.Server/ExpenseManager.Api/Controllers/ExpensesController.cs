@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseManager.Api.Models;
 using ExpenseManager.DataAccess.Entities;
 using ExpenseManager.DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -21,9 +22,19 @@ namespace ExpenseManager_Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Expense>> GetAll()
+        public ActionResult<List<ExpenseModel>> GetAll()
         {
-            return _expenseRepository.GetAll().ToList() ?? new List<Expense>();
+            //return _expenseRepository.GetAll().ToList() ?? new List<Expense>();
+            return new List<ExpenseModel>()
+            {
+                new ExpenseModel()
+                {
+                    Id = "1",
+                    Description = "Test",
+                    Amount = 10,
+                    IsShared = false
+                }
+            };
         }
     }
 }
