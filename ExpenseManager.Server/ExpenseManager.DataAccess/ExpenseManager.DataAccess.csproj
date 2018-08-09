@@ -74,8 +74,9 @@
     <Compile Include="Repositories\Implementations\GroupRepository.cs" />
     <Compile Include="Repositories\Implementations\SharedExpenseRepository.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IExpenseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IExtendedRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISharedExpenseRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

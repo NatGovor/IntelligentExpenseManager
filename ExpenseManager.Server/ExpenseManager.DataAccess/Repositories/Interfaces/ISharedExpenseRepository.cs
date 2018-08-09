@@ -1,5 +1,4 @@
-﻿using ExpenseManager.DataAccess.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Interfaces
 {
-    public interface IRepository<T>
+    public interface ISharedExpenseRepository<T> : IRepository<T>
     {
-        IEnumerable<T> GetAll();
-
-        T GetById(string id);
+        IEnumerable<T> GetByGroupId(string groupId);
     }
 }

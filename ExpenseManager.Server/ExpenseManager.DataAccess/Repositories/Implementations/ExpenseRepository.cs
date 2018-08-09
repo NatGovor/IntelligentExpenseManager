@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class ExpenseRepository : IExpenseRepository<Expense>
+    public class ExpenseRepository : IExtendedRepository<Expense>
     {
         private readonly DbContext _context = null;
 
@@ -30,6 +30,11 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
             {
                 throw ex;
             }
+        }
+
+        public Expense GetById(string id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Expense> GetByUserId(string userId)

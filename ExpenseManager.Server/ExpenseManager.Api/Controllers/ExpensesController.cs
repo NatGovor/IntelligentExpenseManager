@@ -14,9 +14,9 @@ namespace ExpenseManager_Server.Controllers
     [ApiController]
     public class ExpensesController : ControllerBase
     {
-        private readonly IExpenseRepository<Expense> _expenseRepository;
+        private readonly IExtendedRepository<Expense> _expenseRepository;
 
-        public ExpensesController(IExpenseRepository<Expense> expenseRepository)
+        public ExpensesController(IExtendedRepository<Expense> expenseRepository)
         {
             _expenseRepository = expenseRepository;
         }

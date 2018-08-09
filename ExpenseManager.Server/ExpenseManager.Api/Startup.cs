@@ -38,9 +38,9 @@ namespace ExpenseManager_Server
             });
 
             services.AddTransient<IRepository<User>, UserRepository>();
-            services.AddTransient<IRepository<Group>, GroupRepository>();
-            services.AddTransient<IExpenseRepository<Expense>, ExpenseRepository>();
-            services.AddTransient<IRepository<SharedExpense>, SharedExpenseRepository>();
+            services.AddTransient<IExtendedRepository<Group>, GroupRepository>();
+            services.AddTransient<IExtendedRepository<Expense>, ExpenseRepository>();
+            services.AddTransient<ISharedExpenseRepository<SharedExpense>, SharedExpenseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

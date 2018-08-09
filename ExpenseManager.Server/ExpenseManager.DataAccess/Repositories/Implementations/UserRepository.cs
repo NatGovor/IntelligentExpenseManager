@@ -1,6 +1,7 @@
 ﻿using ExpenseManager.DataAccess.Entities;
 using ExpenseManager.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,19 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
             try
             {
                 return _context.Users.Find(_ => true).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public User GetById(string id)
+        {
+            ObjectId oId = new ObjectId(id);
+            try
+            {
+                return _context.Users.Find(user => user.Id == oId).FirstOrDefault();
             }
             catch (Exception ex)
             {
