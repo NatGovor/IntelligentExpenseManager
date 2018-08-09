@@ -264,7 +264,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  expenses works!\n</p>\n"
+module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':true:'1.2-2' }}\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n"
 
 /***/ }),
 
@@ -301,7 +301,9 @@ var ExpensesComponent = /** @class */ (function () {
     ExpensesComponent.prototype.getExpenses = function () {
         var _this = this;
         this.expenseService.getExpenses()
-            .subscribe(function (expenses) { return _this.expenses = expenses; });
+            .subscribe(function (dayExpenses) {
+            _this.dayExpenses = dayExpenses;
+        });
     };
     ExpensesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -312,6 +314,26 @@ var ExpensesComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"]])
     ], ExpensesComponent);
     return ExpensesComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/secure-app/models/day-expenses.ts":
+/*!***************************************************!*\
+  !*** ./src/app/secure-app/models/day-expenses.ts ***!
+  \***************************************************/
+/*! exports provided: DayExpenses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DayExpenses", function() { return DayExpenses; });
+var DayExpenses = /** @class */ (function () {
+    function DayExpenses() {
+    }
+    return DayExpenses;
 }());
 
 
@@ -576,6 +598,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _models_day_expenses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/day-expenses */ "./src/app/secure-app/models/day-expenses.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -585,6 +608,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -599,8 +623,21 @@ var ExpenseService = /** @class */ (function () {
     }
     ExpenseService.prototype.getExpenses = function () {
         var _this = this;
-        return this.http.get(this.expensesUrl)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched expenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getExpenses', [])));
+        var userId = "5b69aa4c544dfdd27f4e3c70";
+        var url = this.expensesUrl + "/" + userId;
+        return this.http.get(url)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (expenses) {
+            var dayExpenses = [];
+            for (var key in expenses) {
+                var dayExpense = new _models_day_expenses__WEBPACK_IMPORTED_MODULE_4__["DayExpenses"]();
+                dayExpense.date = new Date(key);
+                dayExpense.expenses = expenses[key];
+                dayExpenses.push(dayExpense);
+            }
+            return dayExpenses;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) {
+            _this.log("fetched expenses");
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getExpenses', [])));
     };
     ExpenseService.prototype.log = function (message) {
         console.log('ExpenseService: ' + message);

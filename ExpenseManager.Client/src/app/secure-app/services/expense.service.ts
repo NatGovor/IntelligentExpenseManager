@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Expense } from '../models/expense';
+import { DayExpenses } from '../models/day-expenses';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,11 +20,25 @@ export class ExpenseService {
   constructor(
     private http: HttpClient) { }
 
-  getExpenses(): Observable<Expense[]> {
-    return this.http.get<Expense[]>(this.expensesUrl)
+  getExpenses(): Observable<DayExpenses[]> {
+    let userId = "5b69aa4c544dfdd27f4e3c70";
+    const url = `${this.expensesUrl}/${userId}`;
+    return this.http.get<Object>(url)
       .pipe(
-        tap(expenses => this.log(`fetched expenses`)),
-        catchError(this.handleError('getExpenses', []))
+        map(expenses => {
+          let dayExpenses = [];
+          for (var key in expenses) {
+            let dayExpense = new DayExpenses();
+            dayExpense.date = new Date(key);
+            dayExpense.expenses = expenses[key];
+            dayExpenses.push(dayExpense);
+          }
+          return dayExpenses;
+        }),
+        tap(expenses => {
+          this.log(`fetched expenses`)
+        }),
+        catchError(this.handleError('getExpenses',[]))
       );
   }
 

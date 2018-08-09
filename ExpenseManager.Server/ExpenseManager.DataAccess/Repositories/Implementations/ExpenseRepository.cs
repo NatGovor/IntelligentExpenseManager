@@ -1,6 +1,7 @@
 ﻿using ExpenseManager.DataAccess.Entities;
 using ExpenseManager.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class ExpenseRepository : IRepository<Expense>
+    public class ExpenseRepository : IExpenseRepository<Expense>
     {
         private readonly DbContext _context = null;
 
@@ -23,7 +24,20 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         {
             try
             {
-                return _context.Expenses.Find(_ => true).ToList();
+                return _context.Expenses.Find(_ => true).ToList().OrderBy(expense => expense.Date);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Expense> GetByUserId(string userId)
+        {
+            ObjectId oUserId = new ObjectId(userId);
+            try
+            {
+                return _context.Expenses.Find(expense => expense.UserId == oUserId).ToList().OrderBy(expense => expense.Date);
             }
             catch (Exception ex)
             {

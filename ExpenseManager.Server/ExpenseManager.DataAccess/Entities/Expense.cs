@@ -16,6 +16,9 @@ namespace ExpenseManager.DataAccess.Entities
         [BsonElement("userId")]
         public ObjectId UserId { get; set; }
 
+        [BsonElement("date")]
+        public DateTime Date { get; set; }
+
         [BsonElement("amount")]
         public decimal Amount { get; set; }
 

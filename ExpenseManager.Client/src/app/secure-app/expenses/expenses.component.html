@@ -1,3 +1,12 @@
-<p>
-  expenses works!
-</p>
+<div class="container">
+  <ul *ngIf="dayExpenses" class="items-list">
+      <li *ngFor="let day of dayExpenses">
+        <div>
+          {{day.date | date}}
+          <div *ngFor="let expense of day.expenses">
+            {{expense.description}} {{expense.amount | currency:'GBP':true:'1.2-2' }}
+          </div>
+        </div>
+      </li>
+    </ul>
+</div>

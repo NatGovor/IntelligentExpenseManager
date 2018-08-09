@@ -255,6 +255,7 @@ var groups = db.groups.find();
 db.sharedExpenses.insert([
     /* 0 Appartment */
     {
+        date: new Date('2018-06-25'),
         amount: 100,
         groupId: groups[2]._id,
         paidBy: users[0]._id,
@@ -272,6 +273,7 @@ db.sharedExpenses.insert([
     },
     /* 1 Train */
     {
+        date: new Date('2018-06-26'),
         amount: 50,
         groupId: groups[2]._id,
         paidBy: users[6]._id,
@@ -289,6 +291,7 @@ db.sharedExpenses.insert([
     },
     /* 2 Hostel Brussels */
     {
+        date: new Date('2018-07-03'),
         amount: 184,
         groupId: groups[0]._id,
         paidBy: users[2]._id,
@@ -314,6 +317,7 @@ db.sharedExpenses.insert([
     },
     /* 3 Bars */
     {
+        date: new Date('2018-07-03'),
         amount: 15,
         groupId: groups[0]._id,
         paidBy: users[7]._id,
@@ -339,6 +343,7 @@ db.sharedExpenses.insert([
     },
     /* 4 Lunch */
     {
+        date: new Date('2018-07-04'),
         amount: 20,
         groupId: groups[0]._id,
         paidBy: users[0]._id,
@@ -364,6 +369,7 @@ db.sharedExpenses.insert([
     },
     /* 5 Dinner */
     {
+        date: new Date('2018-07-04'),
         amount: 40,
         groupId: groups[0]._id,
         paidBy: users[3]._id,
@@ -389,6 +395,7 @@ db.sharedExpenses.insert([
     },
     /* 6 Beer museum */
     {
+        date: new Date('2018-07-05'),
         amount: 20,
         groupId: groups[0]._id,
         paidBy: users[3]._id,
@@ -414,6 +421,7 @@ db.sharedExpenses.insert([
     },
     /* 7 Hostel Brugge */
     {
+        date: new Date('2018-07-05'),
         amount: 84,
         groupId: groups[0]._id,
         paidBy: users[2]._id,
@@ -444,6 +452,7 @@ db.expenses.insert([
     /* Expenses of user 0 */
     {
         userId: users[0]._id,
+        date: new Date('2018-06-25'),
         amount: 50,
         description: 'Apartments',
         isShared: true,
@@ -451,6 +460,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-06-26'),
         amount: 25,
         description: 'Train',
         isShared: true,
@@ -458,6 +468,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-07-03'),
         amount: 46,
         description: 'Hostel Brussels',
         isShared: true,
@@ -465,6 +476,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-07-03'),
         amount: 3.75,
         description: 'Bars',
         isShared: true,
@@ -472,6 +484,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-07-04'),
         amount: 5,
         description: 'Lunch',
         isShared: true,
@@ -479,6 +492,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-07-04'),
         amount: 10,
         description: 'Dinner',
         isShared: true,
@@ -486,6 +500,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-07-05'),
         amount: 5,
         description: 'Beer museum',
         isShared: true,
@@ -493,6 +508,7 @@ db.expenses.insert([
     },
     {
         userId: users[0]._id,
+        date: new Date('2018-07-05'),
         amount: 21,
         description: 'Hostel Brugge',
         isShared: true,
@@ -501,6 +517,7 @@ db.expenses.insert([
     /* Expenses of user 2 */
     {
         userId: users[2]._id,
+        date: new Date('2018-07-03'),
         amount: 46,
         description: 'Hostel Brussels',
         isShared: true,
@@ -508,6 +525,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-03'),
         amount: 3.75,
         description: 'Bars',
         isShared: true,
@@ -515,6 +533,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-04'),
         amount: 5,
         description: 'Lunch',
         isShared: true,
@@ -522,6 +541,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-04'),
         amount: 10,
         description: 'Dinner',
         isShared: true,
@@ -529,6 +549,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-05'),
         amount: 5,
         description: 'Beer museum',
         isShared: true,
@@ -536,6 +557,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-05'),
         amount: 21,
         description: 'Hostel Brugge',
         isShared: true,
@@ -544,6 +566,7 @@ db.expenses.insert([
     /* Expenses of user 3 */
     {
         userId: users[3]._id,
+        date: new Date('2018-07-03'),
         amount: 46,
         description: 'Hotel Brussels',
         isShared: true,
@@ -551,6 +574,7 @@ db.expenses.insert([
     },
     {
         userId: users[3]._id,
+        date: new Date('2018-07-03'),
         amount: 3.75,
         description: 'Bars',
         isShared: true,
@@ -558,6 +582,7 @@ db.expenses.insert([
     },
     {
         userId: users[3]._id,
+        date: new Date('2018-07-04'),
         amount: 5,
         description: 'Lunch',
         isShared: true,
@@ -565,6 +590,7 @@ db.expenses.insert([
     },
     {
         userId: users[3]._id,
+        date: new Date('2018-07-04'),
         amount: 10,
         description: 'Dinner',
         isShared: true,
@@ -572,6 +598,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-05'),
         amount: 5,
         description: 'Beer museum',
         isShared: true,
@@ -579,6 +606,7 @@ db.expenses.insert([
     },
     {
         userId: users[2]._id,
+        date: new Date('2018-07-05'),
         amount: 21,
         description: 'Hostel Brugge',
         isShared: true,
@@ -587,6 +615,7 @@ db.expenses.insert([
     /* Expenses of user 6 */
     {
         userId: users[6]._id,
+        date: new Date('2018-06-25'),
         amount: 50,
         description: 'Apartments',
         isShared: true,
@@ -594,6 +623,7 @@ db.expenses.insert([
     },
     {
         userId: users[6]._id,
+        date: new Date('2018-06-26'),
         amount: 25,
         description: 'Train',
         isShared: true,
@@ -602,6 +632,7 @@ db.expenses.insert([
     /* Expenses of user 7 */
     {
         userId: users[7]._id,
+        date: new Date('2018-07-03'),
         amount: 46,
         description: 'Hotel Brussels',
         isShared: true,
@@ -609,6 +640,7 @@ db.expenses.insert([
     },
     {
         userId: users[7]._id,
+        date: new Date('2018-07-03'),
         amount: 3.75,
         description: 'Bars',
         isShared: true,
@@ -616,6 +648,7 @@ db.expenses.insert([
     },
     {
         userId: users[7]._id,
+        date: new Date('2018-07-04'),
         amount: 5,
         description: 'Lunch',
         isShared: true,
@@ -623,6 +656,7 @@ db.expenses.insert([
     },
     {
         userId: users[7]._id,
+        date: new Date('2018-07-04'),
         amount: 10,
         description: 'Dinner',
         isShared: true,
@@ -630,6 +664,7 @@ db.expenses.insert([
     },
     {
         userId: users[7]._id,
+        date: new Date('2018-07-05'),
         amount: 5,
         description: 'Beer museum',
         isShared: true,
@@ -637,6 +672,7 @@ db.expenses.insert([
     },
     {
         userId: users[7]._id,
+        date: new Date('2018-07-05'),
         amount: 21,
         description: 'Hostel Brugge',
         isShared: true,

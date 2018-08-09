@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Expense } from '../models/expense';
 import { ExpenseService } from '../services/expense.service';
+import { DayExpenses } from '../models/day-expenses';
 
 @Component({
   selector: 'app-expenses',
@@ -9,7 +10,7 @@ import { ExpenseService } from '../services/expense.service';
   styleUrls: ['./expenses.component.css']
 })
 export class ExpensesComponent implements OnInit {
-  expenses: Expense[];
+  dayExpenses: DayExpenses[];
 
   constructor(private expenseService: ExpenseService) { }
 
@@ -19,7 +20,9 @@ export class ExpensesComponent implements OnInit {
 
   getExpenses(): void {
     this.expenseService.getExpenses()
-      .subscribe(expenses => this.expenses = expenses);
+      .subscribe(dayExpenses => {
+        this.dayExpenses = dayExpenses;
+      });
   }
 
 }

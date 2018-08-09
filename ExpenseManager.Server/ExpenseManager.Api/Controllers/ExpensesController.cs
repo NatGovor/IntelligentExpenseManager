@@ -14,9 +14,9 @@ namespace ExpenseManager_Server.Controllers
     [ApiController]
     public class ExpensesController : ControllerBase
     {
-        private readonly IRepository<Expense> _expenseRepository;
+        private readonly IExpenseRepository<Expense> _expenseRepository;
 
-        public ExpensesController(IRepository<Expense> expenseRepository)
+        public ExpensesController(IExpenseRepository<Expense> expenseRepository)
         {
             _expenseRepository = expenseRepository;
         }
@@ -24,17 +24,58 @@ namespace ExpenseManager_Server.Controllers
         [HttpGet]
         public ActionResult<List<ExpenseModel>> GetAll()
         {
-            //return _expenseRepository.GetAll().ToList() ?? new List<Expense>();
-            return new List<ExpenseModel>()
+            var expenses = _expenseRepository.GetAll().ToList() ?? new List<Expense>();
+            var result = new List<ExpenseModel>();
+            expenses.ForEach(expense =>
             {
-                new ExpenseModel()
+                result.Add(new ExpenseModel()
                 {
-                    Id = "1",
-                    Description = "Test",
-                    Amount = 10,
-                    IsShared = false
-                }
-            };
+                    Id = expense.Id.ToString(),
+                    Description = expense.Description,
+                    Amount = expense.Amount,
+                    IsShared = expense.IsShared,
+                    SharedExpenseId = expense.SharedExpenseId.ToString()
+                });
+            });
+            return result;
+        }
+
+        [HttpGet("{userId}")]
+        public ActionResult<Dictionary<DateTime, List<ExpenseModel>>> GetByUser(string userId = "")
+        {
+            var result = new Dictionary<DateTime, List<ExpenseModel>>();
+            var expenses = _expenseRepository.GetByUserId(userId).ToList() ?? new List<Expense>();
+            if (expenses.Count != 0)
+            {
+                expenses.ForEach(expense =>
+                {
+                    if (result.ContainsKey(expense.Date))
+                    {
+                        var list = result.GetValueOrDefault(expense.Date);
+                        list.Add(new ExpenseModel()
+                            {
+                                Id = expense.Id.ToString(),
+                                Description = expense.Description,
+                                Amount = expense.Amount,
+                                IsShared = expense.IsShared,
+                                SharedExpenseId = expense.SharedExpenseId.ToString()
+                            });
+                    } else
+                    {
+                        result.Add(expense.Date, new List<ExpenseModel>() {
+                            new ExpenseModel() {
+                                Id = expense.Id.ToString(),
+                                Description = expense.Description,
+                                Amount = expense.Amount,
+                                IsShared = expense.IsShared,
+                                SharedExpenseId = expense.SharedExpenseId.ToString()
+                            }
+                        });
+                    }
+                });
+            }
+
+            return result;
         }
     }
 }
