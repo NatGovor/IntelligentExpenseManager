@@ -7,6 +7,7 @@ using ExpenseManager.DataAccess.Entities;
 using ExpenseManager.DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace ExpenseManager_Server.Controllers
 {
@@ -31,8 +32,10 @@ namespace ExpenseManager_Server.Controllers
                 result.Add(new ExpenseModel()
                 {
                     Id = expense.Id.ToString(),
-                    Description = expense.Description,
+                    UserId = expense.UserId.ToString(),
+                    Date = expense.Date,
                     Amount = expense.Amount,
+                    Description = expense.Description,
                     IsShared = expense.IsShared,
                     SharedExpenseId = expense.SharedExpenseId.ToString()
                 });
@@ -40,7 +43,7 @@ namespace ExpenseManager_Server.Controllers
             return result;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("user/{userId}")]
         public ActionResult<Dictionary<DateTime, List<ExpenseModel>>> GetByUser(string userId = "")
         {
             var result = new Dictionary<DateTime, List<ExpenseModel>>();
@@ -55,8 +58,10 @@ namespace ExpenseManager_Server.Controllers
                         list.Add(new ExpenseModel()
                             {
                                 Id = expense.Id.ToString(),
-                                Description = expense.Description,
+                                UserId = expense.UserId.ToString(),
+                                Date = expense.Date,
                                 Amount = expense.Amount,
+                                Description = expense.Description,
                                 IsShared = expense.IsShared,
                                 SharedExpenseId = expense.SharedExpenseId.ToString()
                             });
@@ -65,8 +70,10 @@ namespace ExpenseManager_Server.Controllers
                         result.Add(expense.Date, new List<ExpenseModel>() {
                             new ExpenseModel() {
                                 Id = expense.Id.ToString(),
-                                Description = expense.Description,
+                                UserId = expense.UserId.ToString(),
+                                Date = expense.Date,
                                 Amount = expense.Amount,
+                                Description = expense.Description,
                                 IsShared = expense.IsShared,
                                 SharedExpenseId = expense.SharedExpenseId.ToString()
                             }
@@ -76,6 +83,48 @@ namespace ExpenseManager_Server.Controllers
             }
 
             return result;
+        }
+
+        [HttpGet("{id}", Name = "GetExpense")]
+        public ActionResult<ExpenseModel> GetById(string id)
+        {
+            Expense expense = _expenseRepository.GetById(id);
+            if (expense == null)
+            {
+                return NotFound();
+            }
+            return new ExpenseModel()
+            {
+                Id = expense.Id.ToString(),
+                UserId = expense.UserId.ToString(),
+                Date = expense.Date,
+                Amount = expense.Amount,
+                Description = expense.Description,
+                IsShared = expense.IsShared,
+                SharedExpenseId = expense.SharedExpenseId.ToString()
+            };
+        }
+
+        [HttpPost]
+        public IActionResult Create(ExpenseModel expense)
+        {
+            ObjectId? sharedExpenseId = null;
+            if (String.IsNullOrEmpty(expense.SharedExpenseId) == false)
+            {
+                sharedExpenseId = new ObjectId(expense.SharedExpenseId);
+            }
+
+            expense.Id = _expenseRepository.Add(new Expense()
+            {
+                UserId = new ObjectId(expense.UserId),
+                Date = expense.Date,
+                Amount = expense.Amount,
+                Description = expense.Description,
+                IsShared = expense.IsShared,
+                SharedExpenseId = sharedExpenseId
+            });
+
+            return CreatedAtRoute("GetExpense", new { id = expense.Id }, expense);
         }
     }
 }

@@ -44,5 +44,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
                 throw ex;
             }
         }
+
+        public string Add(User item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

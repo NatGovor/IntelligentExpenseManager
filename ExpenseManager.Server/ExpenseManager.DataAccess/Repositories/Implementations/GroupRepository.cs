@@ -50,5 +50,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
                 throw ex;
             }
         }
+
+        public string Add(Group item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

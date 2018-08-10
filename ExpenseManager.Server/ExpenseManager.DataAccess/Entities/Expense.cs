@@ -29,6 +29,6 @@ namespace ExpenseManager.DataAccess.Entities
         public bool IsShared { get; set; }
 
         [BsonElement("sharedExpenseId")]
-        public ObjectId SharedExpenseId { get; set; }
+        public ObjectId? SharedExpenseId { get; set; }
     }
 }

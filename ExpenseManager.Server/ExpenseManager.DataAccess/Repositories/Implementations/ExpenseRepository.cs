@@ -24,7 +24,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         {
             try
             {
-                return _context.Expenses.Find(_ => true).ToList().OrderBy(expense => expense.Date);
+                return _context.Expenses.Find(_ => true).ToList().OrderByDescending(expense => expense.Date);
             }
             catch (Exception ex)
             {
@@ -34,7 +34,15 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public Expense GetById(string id)
         {
-            throw new NotImplementedException();
+            ObjectId oId = new ObjectId(id);
+            try
+            {
+                return _context.Expenses.Find(expense => expense.Id == oId).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Expense GetByIds(string userId, string sharedExpenseId)
@@ -57,12 +65,18 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
             ObjectId oUserId = new ObjectId(userId);
             try
             {
-                return _context.Expenses.Find(expense => expense.UserId == oUserId).ToList().OrderBy(expense => expense.Date);
+                return _context.Expenses.Find(expense => expense.UserId == oUserId).ToList().OrderByDescending(expense => expense.Date);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public string Add(Expense item)
+        {
+            _context.Expenses.InsertOne(item);
+            return item.Id.ToString();
         }
     }
 }

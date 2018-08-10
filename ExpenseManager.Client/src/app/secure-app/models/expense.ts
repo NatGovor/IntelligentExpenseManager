@@ -1,7 +1,9 @@
 export class Expense {
   id: string;
-  description: string;
+  userId: string;
+  date: Date;
   amount: number;
+  description: string;
   isShared: boolean;
   sharedExpenseId: string;
 }

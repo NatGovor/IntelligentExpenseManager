@@ -6,6 +6,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { SharedExpensesComponent } from './shared-expenses/shared-expenses.component';
 import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
+import { NewExpenseComponent } from './new-expense/new-expense.component';
 
 const secureAppRoutes: Routes = [
     {
@@ -18,7 +19,8 @@ const secureAppRoutes: Routes = [
             { path: 'expenses', component: ExpensesComponent },
             { path: 'shared-expenses', component: SharedExpensesComponent },
             { path: 'debts', component: DebtsComponent },
-            { path: 'reports', component: ReportsComponent }
+            { path: 'reports', component: ReportsComponent },
+            { path: 'new-expense', component: NewExpenseComponent }
           ]
         }
       ]

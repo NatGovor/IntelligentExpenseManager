@@ -12,5 +12,7 @@ namespace ExpenseManager.DataAccess.Repositories.Interfaces
         IEnumerable<T> GetAll();
 
         T GetById(string id);
+
+        string Add(T item);
     }
 }

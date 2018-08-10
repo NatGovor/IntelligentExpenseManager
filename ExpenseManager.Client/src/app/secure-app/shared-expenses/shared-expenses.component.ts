@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { SharedExpense } from '../models/shared-expense';
 import { SharedExpenseService } from '../services/shared-expense.service';
 
@@ -10,7 +12,10 @@ import { SharedExpenseService } from '../services/shared-expense.service';
 export class SharedExpensesComponent implements OnInit {
   sharedExpenses: SharedExpense[];
 
-  constructor(private sharedExpenseService: SharedExpenseService) { }
+  constructor(
+    private sharedExpenseService: SharedExpenseService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getSharedExpenses();
@@ -45,6 +50,10 @@ export class SharedExpensesComponent implements OnInit {
     } else {
         return 'negative';
     }
+  }
+
+  gotoNewExpense() {
+    this.router.navigate(['/user/new-expense']);
   }
 
 }

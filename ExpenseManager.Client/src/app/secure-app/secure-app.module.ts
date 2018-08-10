@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { ExpensesComponent } from './expenses/expenses.component';
 import { SecureAppComponent } from './secure-app.component';
@@ -9,10 +10,12 @@ import { SharedExpensesComponent } from './shared-expenses/shared-expenses.compo
 import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MakePositivePipe } from './pipes/make-positive.pipe';
+import { NewExpenseComponent } from './new-expense/new-expense.component';
 
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     SecureAppRoutingModule
   ],
   providers: [],
@@ -22,7 +25,8 @@ import { MakePositivePipe } from './pipes/make-positive.pipe';
     SharedExpensesComponent,
     DebtsComponent,
     ReportsComponent,
-    MakePositivePipe
+    MakePositivePipe,
+    NewExpenseComponent
   ]
 })
 export class SecureAppModule { }

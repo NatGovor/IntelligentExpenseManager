@@ -22,7 +22,7 @@ export class ExpenseService {
 
   getExpenses(): Observable<DayExpenses[]> {
     let userId = "5b69aa4c544dfdd27f4e3c70";
-    const url = `${this.expensesUrl}/${userId}`;
+    const url = `${this.expensesUrl}/user/${userId}`;
     return this.http.get<Object>(url)
       .pipe(
         map(expenses => {
@@ -40,6 +40,13 @@ export class ExpenseService {
         }),
         catchError(this.handleError('getExpenses',[]))
       );
+  }
+
+  addExpense(expense: Expense): Observable<Expense> {
+    return this.http.post<Expense>(this.expensesUrl, expense, httpOptions).pipe(
+      tap((expense: Expense) => this.log(`added expense w/ id=${expense.id}`)),
+      catchError(this.handleError<Expense>('addExpense'))
+    );
   }
 
   private log(message: string) {

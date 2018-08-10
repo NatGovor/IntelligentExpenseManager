@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Expense } from '../models/expense';
 import { ExpenseService } from '../services/expense.service';
 import { DayExpenses } from '../models/day-expenses';
 
@@ -12,7 +12,10 @@ import { DayExpenses } from '../models/day-expenses';
 export class ExpensesComponent implements OnInit {
   dayExpenses: DayExpenses[];
 
-  constructor(private expenseService: ExpenseService) { }
+  constructor(
+    private expenseService: ExpenseService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getExpenses();
@@ -23,6 +26,10 @@ export class ExpensesComponent implements OnInit {
       .subscribe(dayExpenses => {
         this.dayExpenses = dayExpenses;
       });
+  }
+
+  gotoNewExpense() {
+    this.router.navigate(['/user/new-expense']);
   }
 
 }
