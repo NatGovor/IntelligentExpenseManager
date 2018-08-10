@@ -22,27 +22,13 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public IEnumerable<SharedExpense> GetAll()
         {
-            try
-            {
-                return _context.SharedExpenses.Find(_ => true).ToList().OrderByDescending(expense => expense.Date); ;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.SharedExpenses.Find(_ => true).ToList().OrderByDescending(expense => expense.Date); ;
         }
 
         public IEnumerable<SharedExpense> GetByGroupId(string groupId)
         {
             ObjectId oGroupId = new ObjectId(groupId);
-            try
-            {
-                return _context.SharedExpenses.Find(expense => expense.GroupId == oGroupId).ToList().OrderByDescending(expense => expense.Date); ;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.SharedExpenses.Find(expense => expense.GroupId == oGroupId).ToList().OrderByDescending(expense => expense.Date); ;
         }
 
         public SharedExpense GetById(string id)

@@ -22,14 +22,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public IEnumerable<Group> GetAll()
         {
-            try
-            {
-                return _context.Groups.Find(_ => true).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.Groups.Find(_ => true).ToList();
         }
 
         public Group GetById(string id)
@@ -41,14 +34,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         {
             var bQuery = "{'friends':{$elemMatch:{'userId': ObjectId('" + userId + "')}}}}";
             var filter = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(bQuery);
-            try
-            {
-                return _context.Groups.Find(filter).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.Groups.Find(filter).ToList();
         }
 
         public string Add(Group item)

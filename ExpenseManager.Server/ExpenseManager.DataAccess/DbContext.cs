@@ -53,5 +53,13 @@ namespace ExpenseManager.DataAccess
                 return _database.GetCollection<SharedExpense>("sharedExpenses");
             }
         }
+
+        public IMongoCollection<UserBalance> UserBalances
+        {
+            get
+            {
+                return _database.GetCollection<UserBalance>("userBalances");
+            }
+        }
     }
 }

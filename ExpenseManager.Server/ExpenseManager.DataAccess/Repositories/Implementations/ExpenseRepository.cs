@@ -22,55 +22,27 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public IEnumerable<Expense> GetAll()
         {
-            try
-            {
-                return _context.Expenses.Find(_ => true).ToList().OrderByDescending(expense => expense.Date);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.Expenses.Find(_ => true).ToList().OrderByDescending(expense => expense.Date);
         }
 
         public Expense GetById(string id)
         {
             ObjectId oId = new ObjectId(id);
-            try
-            {
-                return _context.Expenses.Find(expense => expense.Id == oId).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.Expenses.Find(expense => expense.Id == oId).FirstOrDefault();
         }
 
         public Expense GetByIds(string userId, string sharedExpenseId)
         {
             ObjectId oUserId = new ObjectId(userId);
             ObjectId oSharedExpenseId = new ObjectId(sharedExpenseId);
-            try
-            {
-                return _context.Expenses.Find(expense => expense.UserId == oUserId && expense.SharedExpenseId == oSharedExpenseId)
-                    .FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.Expenses.Find(expense => expense.UserId == oUserId && expense.SharedExpenseId == oSharedExpenseId)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Expense> GetByUserId(string userId)
         {
             ObjectId oUserId = new ObjectId(userId);
-            try
-            {
-                return _context.Expenses.Find(expense => expense.UserId == oUserId).ToList().OrderByDescending(expense => expense.Date);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return _context.Expenses.Find(expense => expense.UserId == oUserId).ToList().OrderByDescending(expense => expense.Date);
         }
 
         public string Add(Expense item)

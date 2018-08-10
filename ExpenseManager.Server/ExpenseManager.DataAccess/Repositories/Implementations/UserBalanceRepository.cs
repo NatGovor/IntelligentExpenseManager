@@ -1,7 +1,6 @@
 ﻿using ExpenseManager.DataAccess.Entities;
 using ExpenseManager.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -11,29 +10,29 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class UserRepository : IRepository<User>
+    public class UserBalanceRepository : IRepository<UserBalance>
     {
         private readonly DbContext _context = null;
 
-        public UserRepository(IOptions<Settings> settings)
+        public UserBalanceRepository(IOptions<Settings> settings)
         {
             _context = new DbContext(settings);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserBalance> GetAll()
         {
-            return _context.Users.Find(_ => true).ToList();
+            return _context.UserBalances.Find(_ => true).ToList();
         }
 
-        public User GetById(string id)
+        public UserBalance GetById(string id)
         {
-            ObjectId oId = new ObjectId(id);
-            return _context.Users.Find(user => user.Id == oId).FirstOrDefault();
+            return _context.UserBalances.Find(_ => true).FirstOrDefault();
         }
 
-        public string Add(User item)
+        public string Add(UserBalance item)
         {
-            throw new NotImplementedException();
+            _context.UserBalances.InsertOne(item);
+            return item.UserId.ToString();
         }
     }
 }
