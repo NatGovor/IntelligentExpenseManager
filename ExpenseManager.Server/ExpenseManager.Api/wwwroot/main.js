@@ -264,7 +264,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':true:'1.2-2' }}\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n"
 
 /***/ }),
 
@@ -334,6 +334,40 @@ var DayExpenses = /** @class */ (function () {
     function DayExpenses() {
     }
     return DayExpenses;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/secure-app/pipes/make-positive.pipe.ts":
+/*!********************************************************!*\
+  !*** ./src/app/secure-app/pipes/make-positive.pipe.ts ***!
+  \********************************************************/
+/*! exports provided: MakePositivePipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MakePositivePipe", function() { return MakePositivePipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var MakePositivePipe = /** @class */ (function () {
+    function MakePositivePipe() {
+    }
+    MakePositivePipe.prototype.transform = function (value) {
+        return Math.abs(value);
+    };
+    MakePositivePipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({ name: 'makePositive' })
+    ], MakePositivePipe);
+    return MakePositivePipe;
 }());
 
 
@@ -544,12 +578,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_expenses_shared_expenses_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared-expenses/shared-expenses.component */ "./src/app/secure-app/shared-expenses/shared-expenses.component.ts");
 /* harmony import */ var _debts_debts_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./debts/debts.component */ "./src/app/secure-app/debts/debts.component.ts");
 /* harmony import */ var _reports_reports_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reports/reports.component */ "./src/app/secure-app/reports/reports.component.ts");
+/* harmony import */ var _pipes_make_positive_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pipes/make-positive.pipe */ "./src/app/secure-app/pipes/make-positive.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -573,7 +609,8 @@ var SecureAppModule = /** @class */ (function () {
                 _expenses_expenses_component__WEBPACK_IMPORTED_MODULE_2__["ExpensesComponent"],
                 _shared_expenses_shared_expenses_component__WEBPACK_IMPORTED_MODULE_5__["SharedExpensesComponent"],
                 _debts_debts_component__WEBPACK_IMPORTED_MODULE_6__["DebtsComponent"],
-                _reports_reports_component__WEBPACK_IMPORTED_MODULE_7__["ReportsComponent"]
+                _reports_reports_component__WEBPACK_IMPORTED_MODULE_7__["ReportsComponent"],
+                _pipes_make_positive_pipe__WEBPACK_IMPORTED_MODULE_8__["MakePositivePipe"]
             ]
         })
     ], SecureAppModule);
@@ -667,6 +704,76 @@ var ExpenseService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/secure-app/services/shared-expense.service.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/secure-app/services/shared-expense.service.ts ***!
+  \***************************************************************/
+/*! exports provided: SharedExpenseService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedExpenseService", function() { return SharedExpenseService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+};
+var SharedExpenseService = /** @class */ (function () {
+    function SharedExpenseService(http) {
+        this.http = http;
+        this.expensesUrl = 'api/sharedexpenses'; // URL to web api
+    }
+    SharedExpenseService.prototype.getSharedExpenses = function () {
+        var _this = this;
+        var userId = "5b69aa4c544dfdd27f4e3c70";
+        var url = this.expensesUrl + "/" + userId;
+        return this.http.get(url)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched expenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getExpenses', [])));
+    };
+    SharedExpenseService.prototype.log = function (message) {
+        console.log('ExpenseService: ' + message);
+    };
+    SharedExpenseService.prototype.handleError = function (operation, result) {
+        var _this = this;
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            _this.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
+    };
+    SharedExpenseService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SharedExpenseService);
+    return SharedExpenseService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/secure-app/shared-expenses/shared-expenses.component.css":
 /*!**************************************************************************!*\
   !*** ./src/app/secure-app/shared-expenses/shared-expenses.component.css ***!
@@ -685,7 +792,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  shared-expenses works!\n</p>\n"
+module.exports = "<div class=\"container\">\n    <ul class=\"items-list\">\n      <li *ngFor=\"let expense of sharedExpenses\">\n        <div>{{expense.date | date}}</div>\n        <div>{{expense.description}}</div>\n        <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>\n        <div [ngClass]=\"addClass(expense)\">\n          {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}\n        </div>\n      </li>\n    </ul>\n</div>\n"
 
 /***/ }),
 
@@ -700,6 +807,7 @@ module.exports = "<p>\n  shared-expenses works!\n</p>\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedExpensesComponent", function() { return SharedExpensesComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_shared_expense_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/shared-expense.service */ "./src/app/secure-app/services/shared-expense.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -710,10 +818,44 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var SharedExpensesComponent = /** @class */ (function () {
-    function SharedExpensesComponent() {
+    function SharedExpensesComponent(sharedExpenseService) {
+        this.sharedExpenseService = sharedExpenseService;
     }
     SharedExpensesComponent.prototype.ngOnInit = function () {
+        this.getSharedExpenses();
+    };
+    SharedExpensesComponent.prototype.getSharedExpenses = function () {
+        var _this = this;
+        this.sharedExpenseService.getSharedExpenses()
+            .subscribe(function (sharedExpenses) {
+            _this.sharedExpenses = sharedExpenses;
+        });
+    };
+    SharedExpensesComponent.prototype.getPayerName = function (expense) {
+        if (expense.userId === expense.payerId) {
+            return 'you';
+        }
+        else {
+            return expense.payerName;
+        }
+    };
+    SharedExpensesComponent.prototype.getDebtText = function (expense) {
+        if (expense.userDebt < 0) {
+            return "you borrowed";
+        }
+        else {
+            return "you lent";
+        }
+    };
+    SharedExpensesComponent.prototype.addClass = function (expense) {
+        if (expense.userId === expense.payerId) {
+            return 'positive';
+        }
+        else {
+            return 'negative';
+        }
     };
     SharedExpensesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -721,7 +863,7 @@ var SharedExpensesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./shared-expenses.component.html */ "./src/app/secure-app/shared-expenses/shared-expenses.component.html"),
             styles: [__webpack_require__(/*! ./shared-expenses.component.css */ "./src/app/secure-app/shared-expenses/shared-expenses.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services_shared_expense_service__WEBPACK_IMPORTED_MODULE_1__["SharedExpenseService"]])
     ], SharedExpensesComponent);
     return SharedExpensesComponent;
 }());

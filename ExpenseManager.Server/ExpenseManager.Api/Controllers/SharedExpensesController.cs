@@ -17,18 +17,21 @@ namespace ExpenseManager.Api.Controllers
         private readonly IExtendedRepository<Group> _groupRepository;
         private readonly ISharedExpenseRepository<SharedExpense> _sharedExpenseRepository;
         private readonly IRepository<User> _userRepository;
+        private readonly IExpenseRepository<Expense> _expenseRepository;
 
         public SharedExpensesController(IExtendedRepository<Group> groupRepository,
             ISharedExpenseRepository<SharedExpense> sharedExpenseRepository,
-            IRepository<User> userRepository)
+            IRepository<User> userRepository,
+            IExpenseRepository<Expense> expenseRepository)
         {
             _groupRepository = groupRepository;
             _sharedExpenseRepository = sharedExpenseRepository;
             _userRepository = userRepository;
+            _expenseRepository = expenseRepository;
         }
 
         [HttpGet("{userId}")]
-        public ActionResult<List<SharedExpenseModel>> GetByUser(string userId)
+        public ActionResult<List<SharedExpenseModel>> GetByUser(string userId = "")
         {
             var userGroups = _groupRepository.GetByUserId(userId).ToList() ?? new List<Group>();
             var result = new List<SharedExpenseModel>();
@@ -50,6 +53,9 @@ namespace ExpenseManager.Api.Controllers
 
                     var payer = _userRepository.GetById(sharedExpenseModel.PayerId);
                     sharedExpenseModel.PayerName = payer.Name;
+
+                    var userExpense = _expenseRepository.GetByIds(sharedExpenseModel.UserId, sharedExpenseModel.Id);
+                    sharedExpenseModel.Description = userExpense.Description;
 
                     var userDebt = expense.Debtors.Find(user => user.UserId.ToString() == userId);
                     if (sharedExpenseModel.PayerId == userId)

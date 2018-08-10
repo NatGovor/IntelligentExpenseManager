@@ -39,7 +39,7 @@ namespace ExpenseManager_Server
 
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IExtendedRepository<Group>, GroupRepository>();
-            services.AddTransient<IExtendedRepository<Expense>, ExpenseRepository>();
+            services.AddTransient<IExpenseRepository<Expense>, ExpenseRepository>();
             services.AddTransient<ISharedExpenseRepository<SharedExpense>, SharedExpenseRepository>();
         }
 

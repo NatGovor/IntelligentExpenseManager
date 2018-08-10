@@ -48,7 +48,7 @@ module.exports = "/*!\n * Bootstrap v4.1.3 (https://getbootstrap.com/)\n * Copyr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* You can add global styles to this file, and also import other style files */\nh1 {\n  color: #369;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%;\n}\nh2, h3 {\n  color: #444;\n  font-family: Arial, Helvetica, sans-serif;\n  font-weight: lighter;\n}\nbody, input[text], button {\n  color: #888;\n  font-family: Cambria, Georgia;\n}\nul.items-list {\n  padding: 0;\n  list-style: none;\n}\nul.items-list li {\n  border-bottom: 1px solid #999;\n}\n/* everywhere else */\n* {\n  font-family: Arial, Helvetica, sans-serif;\n}\n"
+module.exports = "/* You can add global styles to this file, and also import other style files */\nh1 {\n  color: #369;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%;\n}\nh2, h3 {\n  color: #444;\n  font-family: Arial, Helvetica, sans-serif;\n  font-weight: lighter;\n}\nbody, input[text], button {\n  color: #888;\n  font-family: Cambria, Georgia;\n}\nul.items-list {\n  padding: 0;\n  list-style: none;\n}\nul.items-list li {\n  border-bottom: 1px solid #999;\n}\n.positive {\n  color: #50c797;\n}\n.negative {\n  color: #de3838;\n}\n/* everywhere else */\n* {\n  font-family: Arial, Helvetica, sans-serif;\n}\n"
 
 /***/ }),
 

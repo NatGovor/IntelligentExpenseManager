@@ -8,6 +8,7 @@ import { SecureAppRoutingModule } from './secure-app-routing.module';
 import { SharedExpensesComponent } from './shared-expenses/shared-expenses.component';
 import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
+import { MakePositivePipe } from './pipes/make-positive.pipe';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ReportsComponent } from './reports/reports.component';
     ExpensesComponent,
     SharedExpensesComponent,
     DebtsComponent,
-    ReportsComponent
+    ReportsComponent,
+    MakePositivePipe
   ]
 })
 export class SecureAppModule { }

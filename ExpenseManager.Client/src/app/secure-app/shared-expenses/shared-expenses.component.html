@@ -1,3 +1,12 @@
-<p>
-  shared-expenses works!
-</p>
+<div class="container">
+    <ul class="items-list">
+      <li *ngFor="let expense of sharedExpenses">
+        <div>{{expense.date | date}}</div>
+        <div>{{expense.description}}</div>
+        <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>
+        <div [ngClass]="addClass(expense)">
+          {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}
+        </div>
+      </li>
+    </ul>
+</div>

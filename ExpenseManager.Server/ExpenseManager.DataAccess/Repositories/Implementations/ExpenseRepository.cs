@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class ExpenseRepository : IExtendedRepository<Expense>
+    public class ExpenseRepository : IExpenseRepository<Expense>, IExtendedRepository<Expense>
     {
         private readonly DbContext _context = null;
 
@@ -35,6 +35,21 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         public Expense GetById(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public Expense GetByIds(string userId, string sharedExpenseId)
+        {
+            ObjectId oUserId = new ObjectId(userId);
+            ObjectId oSharedExpenseId = new ObjectId(sharedExpenseId);
+            try
+            {
+                return _context.Expenses.Find(expense => expense.UserId == oUserId && expense.SharedExpenseId == oSharedExpenseId)
+                    .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<Expense> GetByUserId(string userId)

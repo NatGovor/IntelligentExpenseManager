@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Interfaces
 {
-    public interface ISharedExpenseRepository<SharedExpense> : IRepository<SharedExpense>
+    public interface IExpenseRepository<Expense> : IRepository<Expense>, IExtendedRepository<Expense>
     {
-        IEnumerable<SharedExpense> GetByGroupId(string groupId);
+        Expense GetByIds(string id, string sharedExpenseId);
     }
 }

@@ -8,6 +8,7 @@ namespace ExpenseManager.Api.Models
     public class SharedExpenseModel
     {
         public string Id { get; set; }
+        public string Description { get; set; }
         public string GroupId { get; set; }
         public string GroupName { get; set; }
         public DateTime Date { get; set; }

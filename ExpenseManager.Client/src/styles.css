@@ -25,6 +25,14 @@ ul.items-list li {
   border-bottom: 1px solid #999;
 }
 
+.positive {
+  color: #50c797;
+}
+
+.negative {
+  color: #de3838;
+}
+
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
