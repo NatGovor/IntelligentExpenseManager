@@ -264,7 +264,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\">+</div>\n</div>\n"
 
 /***/ }),
 
@@ -511,7 +511,7 @@ var SecureAppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n}\r\n\r\n.nav-top {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  padding: 6px;\r\n}\r\n\r\n.nav-bottom {\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n"
+module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n"
 
 /***/ }),
 
@@ -522,7 +522,7 @@ module.exports = ".nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row nav-top\">\r\n    <div class=\"col-10\">Intellginet Expense Manager</div>\r\n    <div class=\"col-2\">\r\n        <img src=\"assets/bell-icon.svg\"/>\r\n    </div>\r\n</div>\r\n<nav class=\"nav nav-bottom\">\r\n  <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n  <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n  <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n  <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n</nav>\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "<div class=\"custom-nav\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"col-10\">Intellginet Expense Manager</div>\r\n        <div class=\"col-2\">\r\n          <img src=\"assets/bell-icon.svg\"/>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"nav\">\r\n      <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -744,10 +744,10 @@ var SharedExpenseService = /** @class */ (function () {
         var userId = "5b69aa4c544dfdd27f4e3c70";
         var url = this.expensesUrl + "/" + userId;
         return this.http.get(url)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched expenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getExpenses', [])));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched sharedExpenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getExpenses', [])));
     };
     SharedExpenseService.prototype.log = function (message) {
-        console.log('ExpenseService: ' + message);
+        console.log('SharedExpenseService: ' + message);
     };
     SharedExpenseService.prototype.handleError = function (operation, result) {
         var _this = this;
@@ -792,7 +792,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <ul class=\"items-list\">\n      <li *ngFor=\"let expense of sharedExpenses\">\n        <div>{{expense.date | date}}</div>\n        <div>{{expense.description}}</div>\n        <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>\n        <div [ngClass]=\"addClass(expense)\">\n          {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}\n        </div>\n      </li>\n    </ul>\n</div>\n"
+module.exports = "<div class=\"container\">\n    <ul class=\"items-list\">\n      <li *ngFor=\"let expense of sharedExpenses\">\n        <div>{{expense.date | date}}</div>\n        <div>{{expense.description}}</div>\n        <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>\n        <div [ngClass]=\"addClass(expense)\">\n          {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n  <div class=\"circle-btn\">+</div>\n</div>\n"
 
 /***/ }),
 

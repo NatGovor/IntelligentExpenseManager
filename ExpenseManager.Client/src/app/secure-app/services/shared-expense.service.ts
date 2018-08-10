@@ -24,13 +24,13 @@ export class SharedExpenseService {
     const url = `${this.expensesUrl}/${userId}`;
     return this.http.get<SharedExpense[]>(url)
       .pipe(
-        tap(expenses => this.log(`fetched expenses`)),
+        tap(expenses => this.log(`fetched sharedExpenses`)),
         catchError(this.handleError('getExpenses',[]))
       );
   }
 
   private log(message: string) {
-    console.log('ExpenseService: ' + message);
+    console.log('SharedExpenseService: ' + message);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
