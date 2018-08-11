@@ -9,5 +9,7 @@ namespace ExpenseManager.DataAccess.Repositories.Interfaces
     public interface IExpenseRepository<Expense> : IRepository<Expense>, IExtendedRepository<Expense>
     {
         Expense GetByIds(string id, string sharedExpenseId);
+
+        IEnumerable<Expense> GetInInterval(DateTime startDate, DateTime endDate);
     }
 }

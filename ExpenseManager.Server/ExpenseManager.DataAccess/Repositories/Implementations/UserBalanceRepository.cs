@@ -34,5 +34,14 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
             _context.UserBalances.InsertOne(item);
             return item.UserId;
         }
+
+        public void Update(UserBalance item)
+        {
+            var filter = Builders<UserBalance>.Filter.Eq(x => x.UserId, item.UserId);
+            var update = Builders<UserBalance>.Update
+                            .Set(x => x.Balance, item.Balance)
+                            .Set(x => x.SafetyPillow, item.SafetyPillow);
+            _context.UserBalances.UpdateOne(filter, update);
+        }
     }
 }

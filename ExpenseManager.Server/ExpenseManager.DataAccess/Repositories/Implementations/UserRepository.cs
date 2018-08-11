@@ -34,5 +34,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         {
             throw new NotImplementedException();
         }
+
+        public void Update(User item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

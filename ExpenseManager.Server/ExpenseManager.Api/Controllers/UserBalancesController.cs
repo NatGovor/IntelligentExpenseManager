@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseManager.Api.Models;
 using ExpenseManager.DataAccess.Entities;
 using ExpenseManager.DataAccess.Repositories.Interfaces;
+using ExpenseManager.DataAccess.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace ExpenseManager.Api.Controllers
 {
@@ -14,10 +17,12 @@ namespace ExpenseManager.Api.Controllers
     public class UserBalancesController : ControllerBase
     {
         private readonly IRepository<UserBalance> _userBalanceRepository;
+        private readonly UserBalanceService _userBalanceService;
 
-        public UserBalancesController(IRepository<UserBalance> userBalanceRepository)
+        public UserBalancesController(IRepository<UserBalance> userBalanceRepository, IExpenseRepository<Expense> expenseRepository)
         {
             _userBalanceRepository = userBalanceRepository;
+            _userBalanceService = new UserBalanceService(_userBalanceRepository, expenseRepository);
         }
 
         [HttpGet]
@@ -67,6 +72,19 @@ namespace ExpenseManager.Api.Controllers
             _userBalanceRepository.Add(userBalance);
 
             return CreatedAtRoute("GetUserBalance", new { id = userBalance.UserId }, userBalance);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(string id, SpendingModel spending)
+        {
+            var userBalance = _userBalanceRepository.GetById(id);
+            if (userBalance == null)
+            {
+                return NotFound();
+            }
+
+            _userBalanceService.UpdateBalance(id, spending.Spending, spending.Date);
+            return NoContent();
         }
     }
 }

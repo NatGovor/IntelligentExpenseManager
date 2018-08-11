@@ -14,5 +14,7 @@ namespace ExpenseManager.DataAccess.Repositories.Interfaces
         T GetById(string id);
 
         string Add(T item);
+
+        void Update(T item);
     }
 }

@@ -81,6 +81,7 @@
     <Compile Include="Repositories\Interfaces\IExtendedRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISharedExpenseRepository.cs" />
+    <Compile Include="Services\UserBalanceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
