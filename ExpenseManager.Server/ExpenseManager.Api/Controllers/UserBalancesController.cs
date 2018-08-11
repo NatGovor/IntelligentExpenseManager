@@ -40,6 +40,30 @@ namespace ExpenseManager.Api.Controllers
         [HttpPost]
         public IActionResult Create(UserBalance userBalance)
         {
+            int weekDaysCount = 0;
+            int saturdaysCount = 0;
+            int sundaysCount = 0;
+
+            for (DateTime day = userBalance.StartDate; day <= userBalance.EndDate; day = day.AddDays(1))
+            {
+                if (day.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    saturdaysCount++;
+                } else if (day.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    sundaysCount++;
+                } else
+                {
+                    weekDaysCount++;
+                }
+            }
+
+            userBalance.UserSettings.MinTotal = weekDaysCount * userBalance.UserSettings.MinWeekday +
+                saturdaysCount * userBalance.UserSettings.MinSaturday + sundaysCount * userBalance.UserSettings.MinSunday;
+
+            userBalance.Balance = userBalance.UserSettings.MinTotal;
+            userBalance.SafetyPillow = userBalance.UserSettings.MaxTotal - userBalance.UserSettings.MinTotal;
+
             _userBalanceRepository.Add(userBalance);
 
             return CreatedAtRoute("GetUserBalance", new { id = userBalance.UserId }, userBalance);

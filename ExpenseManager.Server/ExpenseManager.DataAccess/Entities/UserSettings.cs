@@ -19,7 +19,7 @@ namespace ExpenseManager.DataAccess.Entities
         public decimal Percentage { get; set; }
 
         [BsonElement("minEveryday")]
-        public decimal MinEveryday { get; set; }
+        public decimal MinWeekday { get; set; }
 
         [BsonElement("minSaturday")]
         public decimal MinSaturday { get; set; }
