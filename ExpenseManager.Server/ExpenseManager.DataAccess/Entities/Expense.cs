@@ -11,10 +11,12 @@ namespace ExpenseManager.DataAccess.Entities
     public class Expense
     {
         [BsonId]
-        public ObjectId Id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
         [BsonElement("userId")]
-        public ObjectId UserId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         [BsonElement("date")]
         public DateTime Date { get; set; }
@@ -29,6 +31,7 @@ namespace ExpenseManager.DataAccess.Entities
         public bool IsShared { get; set; }
 
         [BsonElement("sharedExpenseId")]
-        public ObjectId? SharedExpenseId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string SharedExpenseId { get; set; }
     }
 }

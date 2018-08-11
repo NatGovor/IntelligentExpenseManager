@@ -31,13 +31,13 @@ namespace ExpenseManager_Server.Controllers
             {
                 result.Add(new ExpenseModel()
                 {
-                    Id = expense.Id.ToString(),
-                    UserId = expense.UserId.ToString(),
+                    Id = expense.Id,
+                    UserId = expense.UserId,
                     Date = expense.Date,
                     Amount = expense.Amount,
                     Description = expense.Description,
                     IsShared = expense.IsShared,
-                    SharedExpenseId = expense.SharedExpenseId.ToString()
+                    SharedExpenseId = expense.SharedExpenseId
                 });
             });
             return result;
@@ -57,25 +57,25 @@ namespace ExpenseManager_Server.Controllers
                         var list = result.GetValueOrDefault(expense.Date);
                         list.Add(new ExpenseModel()
                             {
-                                Id = expense.Id.ToString(),
-                                UserId = expense.UserId.ToString(),
+                                Id = expense.Id,
+                                UserId = expense.UserId,
                                 Date = expense.Date,
                                 Amount = expense.Amount,
                                 Description = expense.Description,
                                 IsShared = expense.IsShared,
-                                SharedExpenseId = expense.SharedExpenseId.ToString()
+                                SharedExpenseId = expense.SharedExpenseId
                             });
                     } else
                     {
                         result.Add(expense.Date, new List<ExpenseModel>() {
                             new ExpenseModel() {
-                                Id = expense.Id.ToString(),
-                                UserId = expense.UserId.ToString(),
+                                Id = expense.Id,
+                                UserId = expense.UserId,
                                 Date = expense.Date,
                                 Amount = expense.Amount,
                                 Description = expense.Description,
                                 IsShared = expense.IsShared,
-                                SharedExpenseId = expense.SharedExpenseId.ToString()
+                                SharedExpenseId = expense.SharedExpenseId
                             }
                         });
                     }
@@ -95,33 +95,27 @@ namespace ExpenseManager_Server.Controllers
             }
             return new ExpenseModel()
             {
-                Id = expense.Id.ToString(),
-                UserId = expense.UserId.ToString(),
+                Id = expense.Id,
+                UserId = expense.UserId,
                 Date = expense.Date,
                 Amount = expense.Amount,
                 Description = expense.Description,
                 IsShared = expense.IsShared,
-                SharedExpenseId = expense.SharedExpenseId.ToString()
+                SharedExpenseId = expense.SharedExpenseId
             };
         }
 
         [HttpPost]
         public IActionResult Create(ExpenseModel expense)
         {
-            ObjectId? sharedExpenseId = null;
-            if (String.IsNullOrEmpty(expense.SharedExpenseId) == false)
-            {
-                sharedExpenseId = new ObjectId(expense.SharedExpenseId);
-            }
-
             expense.Id = _expenseRepository.Add(new Expense()
             {
-                UserId = new ObjectId(expense.UserId),
+                UserId = expense.UserId,
                 Date = expense.Date,
                 Amount = expense.Amount,
                 Description = expense.Description,
                 IsShared = expense.IsShared,
-                SharedExpenseId = sharedExpenseId
+                SharedExpenseId = String.IsNullOrEmpty(expense.SharedExpenseId) == true ? null : expense.SharedExpenseId
             });
 
             return CreatedAtRoute("GetExpense", new { id = expense.Id }, expense);

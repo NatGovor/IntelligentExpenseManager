@@ -11,7 +11,8 @@ namespace ExpenseManager.DataAccess.Entities
     public class Debtor
     {
         [BsonElement("userId")]
-        public ObjectId UserId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         [BsonElement("amount")]
         public decimal Amount { get; set; }

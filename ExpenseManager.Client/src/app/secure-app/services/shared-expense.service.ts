@@ -25,7 +25,7 @@ export class SharedExpenseService {
     return this.http.get<SharedExpense[]>(url)
       .pipe(
         tap(expenses => this.log(`fetched sharedExpenses`)),
-        catchError(this.handleError('getExpenses',[]))
+        catchError(this.handleError('getSharedExpenses',[]))
       );
   }
 

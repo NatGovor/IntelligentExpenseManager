@@ -32,7 +32,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         public string Add(UserBalance item)
         {
             _context.UserBalances.InsertOne(item);
-            return item.UserId.ToString();
+            return item.UserId;
         }
     }
 }

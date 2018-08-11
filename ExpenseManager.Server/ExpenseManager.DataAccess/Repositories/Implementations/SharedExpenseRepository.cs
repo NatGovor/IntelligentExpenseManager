@@ -27,8 +27,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public IEnumerable<SharedExpense> GetByGroupId(string groupId)
         {
-            ObjectId oGroupId = new ObjectId(groupId);
-            return _context.SharedExpenses.Find(expense => expense.GroupId == oGroupId).ToList().OrderByDescending(expense => expense.Date); ;
+            return _context.SharedExpenses.Find(expense => expense.GroupId == groupId).ToList().OrderByDescending(expense => expense.Date); ;
         }
 
         public SharedExpense GetById(string id)

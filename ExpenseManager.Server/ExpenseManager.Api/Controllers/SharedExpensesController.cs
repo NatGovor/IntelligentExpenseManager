@@ -37,16 +37,16 @@ namespace ExpenseManager.Api.Controllers
             var result = new List<SharedExpenseModel>();
             userGroups.ForEach(group =>
             {
-                var expenses = _sharedExpenseRepository.GetByGroupId(group.Id.ToString()).ToList();
+                var expenses = _sharedExpenseRepository.GetByGroupId(group.Id).ToList();
                 expenses.ForEach(expense =>
                 {
                     var sharedExpenseModel = new SharedExpenseModel()
                     {
-                        Id = expense.Id.ToString(),
+                        Id = expense.Id,
                         Date = expense.Date,
-                        GroupId = group.Id.ToString(),
+                        GroupId = group.Id,
                         GroupName = group.Name,
-                        PayerId = expense.PaidBy.ToString(),
+                        PayerId = expense.PaidBy,
                         TotalAmount = expense.Amount,
                         UserId = userId
                     };
@@ -57,7 +57,7 @@ namespace ExpenseManager.Api.Controllers
                     var userExpense = _expenseRepository.GetByIds(sharedExpenseModel.UserId, sharedExpenseModel.Id);
                     sharedExpenseModel.Description = userExpense.Description;
 
-                    var userDebt = expense.Debtors.Find(user => user.UserId.ToString() == userId);
+                    var userDebt = expense.Debtors.Find(user => user.UserId == userId);
                     if (sharedExpenseModel.PayerId == userId)
                     {
                         sharedExpenseModel.UserDebt = sharedExpenseModel.TotalAmount - userDebt.Amount;

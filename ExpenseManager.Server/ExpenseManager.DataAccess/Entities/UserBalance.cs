@@ -11,7 +11,8 @@ namespace ExpenseManager.DataAccess.Entities
     public class UserBalance
     {
         [BsonId]
-        public ObjectId UserId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         [BsonElement("balance")]
         public decimal Balance { get; set; }

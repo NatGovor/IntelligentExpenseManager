@@ -11,7 +11,8 @@ namespace ExpenseManager.DataAccess.Entities
     public class Friend
     {
         [BsonElement("userId")]
-        public ObjectId UserId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         [BsonElement("name")]
         public String Name { get; set; }

@@ -27,28 +27,24 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public Expense GetById(string id)
         {
-            ObjectId oId = new ObjectId(id);
-            return _context.Expenses.Find(expense => expense.Id == oId).FirstOrDefault();
+            return _context.Expenses.Find(expense => expense.Id == id).FirstOrDefault();
         }
 
         public Expense GetByIds(string userId, string sharedExpenseId)
         {
-            ObjectId oUserId = new ObjectId(userId);
-            ObjectId oSharedExpenseId = new ObjectId(sharedExpenseId);
-            return _context.Expenses.Find(expense => expense.UserId == oUserId && expense.SharedExpenseId == oSharedExpenseId)
+            return _context.Expenses.Find(expense => expense.UserId == userId && expense.SharedExpenseId == sharedExpenseId)
                 .FirstOrDefault();
         }
 
         public IEnumerable<Expense> GetByUserId(string userId)
         {
-            ObjectId oUserId = new ObjectId(userId);
-            return _context.Expenses.Find(expense => expense.UserId == oUserId).ToList().OrderByDescending(expense => expense.Date);
+            return _context.Expenses.Find(expense => expense.UserId == userId).ToList().OrderByDescending(expense => expense.Date);
         }
 
         public string Add(Expense item)
         {
             _context.Expenses.InsertOne(item);
-            return item.Id.ToString();
+            return item.Id;
         }
     }
 }

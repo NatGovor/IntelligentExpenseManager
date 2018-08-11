@@ -27,8 +27,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public User GetById(string id)
         {
-            ObjectId oId = new ObjectId(id);
-            return _context.Users.Find(user => user.Id == oId).FirstOrDefault();
+            return _context.Users.Find(user => user.Id == id).FirstOrDefault();
         }
 
         public string Add(User item)
