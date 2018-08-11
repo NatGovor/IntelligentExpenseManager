@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,15 @@ namespace ExpenseManager.DataAccess.Entities
 {
     public class UserSettings
     {
-        [BsonElement("min")]
-        public decimal MinTotal { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         [BsonElement("max")]
-        public decimal MaxTotal { get; set; }
+        public decimal MaximumToSpend { get; set; }
 
         [BsonElement("percentage")]
-        public decimal Percentage { get; set; }
+        public int Percentage { get; set; }
 
         [BsonElement("minEveryday")]
         public decimal MinWeekday { get; set; }

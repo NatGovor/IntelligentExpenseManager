@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\UserBalance.cs" />
     <Compile Include="Entities\Debtor.cs" />
     <Compile Include="Entities\Expense.cs" />
     <Compile Include="Entities\Friend.cs" />
@@ -75,13 +74,13 @@
     <Compile Include="Repositories\Implementations\ExpenseRepository.cs" />
     <Compile Include="Repositories\Implementations\GroupRepository.cs" />
     <Compile Include="Repositories\Implementations\SharedExpenseRepository.cs" />
-    <Compile Include="Repositories\Implementations\UserBalanceRepository.cs" />
+    <Compile Include="Repositories\Implementations\UserSettingsRepository.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IExpenseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IExtendedRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISharedExpenseRepository.cs" />
-    <Compile Include="Services\UserBalanceService.cs" />
+    <Compile Include="Services\BalanceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

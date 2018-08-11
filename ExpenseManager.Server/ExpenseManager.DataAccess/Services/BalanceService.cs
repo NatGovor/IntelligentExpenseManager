@@ -9,30 +9,54 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Services
 {
-    public class UserBalanceService
+    public class BalanceService
     {
-        private readonly IRepository<UserBalance> _userBalanceRepository;
+        private readonly IRepository<UserSettings> _userSettingsRepository;
         private readonly IExpenseRepository<Expense> _expenseRepository;
 
-        public UserBalanceService(IRepository<UserBalance> userBalanceRepository, IExpenseRepository<Expense> expenseRepository)
+        public BalanceService(IRepository<UserSettings> userSettingsRepository, IExpenseRepository<Expense> expenseRepository)
         {
-            _userBalanceRepository = userBalanceRepository;
+            _userSettingsRepository = userSettingsRepository;
             _expenseRepository = expenseRepository;
         }
 
         public bool IsBalanceGood(string userId, DateTime date)
         {
-            UserBalance userBalance = _userBalanceRepository.GetById(userId);
+            UserSettings userSettings = _userSettingsRepository.GetById(userId);
 
             DateTime startDate = new DateTime(date.Year, date.Month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+            int weekDaysCount = 0;
+            int saturdaysCount = 0;
+            int sundaysCount = 0;
+
+            for (DateTime day = startDate; day <= endDate; day = day.AddDays(1))
+            {
+                if (day.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    saturdaysCount++;
+                }
+                else if (day.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    sundaysCount++;
+                }
+                else
+                {
+                    weekDaysCount++;
+                }
+            }
+
+            decimal balance = weekDaysCount * userSettings.MinWeekday +
+                saturdaysCount * userSettings.MinSaturday + sundaysCount * userSettings.MinSunday;
+            decimal safetyPillow = userSettings.MaximumToSpend - balance;
+
+
             if (date.Month == DateTime.Now.Month)
             {
                 endDate = new DateTime(date.Year, date.Month, date.Day);
-            }
+            }      
 
-            decimal balance = userBalance.Balance;
-            decimal safetyPillow = userBalance.SafetyPillow;
             for (DateTime day = startDate; day <= endDate; day = day.AddDays(1))
             {
                 var dayExpenses = _expenseRepository.GetInIntervalForUser(
@@ -51,13 +75,13 @@ namespace ExpenseManager.DataAccess.Services
                 switch (day.DayOfWeek)
                 {
                     case DayOfWeek.Saturday:
-                        normalSpending = userBalance.UserSettings.MinSaturday;
+                        normalSpending = userSettings.MinSaturday;
                         break;
                     case DayOfWeek.Sunday:
-                        normalSpending = userBalance.UserSettings.MinSunday;
+                        normalSpending = userSettings.MinSunday;
                         break;
                     default:
-                        normalSpending = userBalance.UserSettings.MinWeekday;
+                        normalSpending = userSettings.MinWeekday;
                         break;
                 }
 

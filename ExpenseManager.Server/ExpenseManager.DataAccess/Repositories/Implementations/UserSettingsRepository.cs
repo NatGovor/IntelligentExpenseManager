@@ -10,38 +10,34 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class UserBalanceRepository : IRepository<UserBalance>
+    public class UserSettingsRepository : IRepository<UserSettings>
     {
         private readonly DbContext _context = null;
 
-        public UserBalanceRepository(IOptions<Settings> settings)
+        public UserSettingsRepository(IOptions<Settings> settings)
         {
             _context = new DbContext(settings);
         }
 
-        public IEnumerable<UserBalance> GetAll()
+        public IEnumerable<UserSettings> GetAll()
         {
             return _context.UserBalances.Find(_ => true).ToList();
         }
 
-        public UserBalance GetById(string id)
+        public UserSettings GetById(string id)
         {
             return _context.UserBalances.Find(_ => true).FirstOrDefault();
         }
 
-        public string Add(UserBalance item)
+        public string Add(UserSettings item)
         {
             _context.UserBalances.InsertOne(item);
             return item.UserId;
         }
 
-        public void Update(UserBalance item)
+        public void Update(UserSettings item)
         {
-            var filter = Builders<UserBalance>.Filter.Eq(x => x.UserId, item.UserId);
-            var update = Builders<UserBalance>.Update
-                            .Set(x => x.Balance, item.Balance)
-                            .Set(x => x.SafetyPillow, item.SafetyPillow);
-            _context.UserBalances.UpdateOne(filter, update);
+            throw new NotImplementedException();
         }
     }
 }

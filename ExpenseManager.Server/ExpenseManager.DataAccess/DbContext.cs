@@ -54,11 +54,11 @@ namespace ExpenseManager.DataAccess
             }
         }
 
-        public IMongoCollection<UserBalance> UserBalances
+        public IMongoCollection<UserSettings> UserBalances
         {
             get
             {
-                return _database.GetCollection<UserBalance>("userBalances");
+                return _database.GetCollection<UserSettings>("userSettings");
             }
         }
     }
