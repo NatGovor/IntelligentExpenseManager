@@ -50,7 +50,7 @@ namespace ExpenseManager.DataAccess.Services
             decimal balance = weekDaysCount * userSettings.MinWeekday +
                 saturdaysCount * userSettings.MinSaturday + sundaysCount * userSettings.MinSunday;
             decimal safetyPillow = userSettings.MaximumToSpend - balance;
-
+            decimal initialSafetyPillow = safetyPillow;
 
             if (date.Month == DateTime.Now.Month)
             {
@@ -101,7 +101,7 @@ namespace ExpenseManager.DataAccess.Services
                 }
             }
 
-            if (safetyPillow > 20)
+            if (safetyPillow > initialSafetyPillow * userSettings.Percentage / 100)
             {
                 return true;
             }
