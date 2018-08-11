@@ -26,7 +26,7 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public UserSettings GetById(string id)
         {
-            return _context.UserBalances.Find(_ => true).FirstOrDefault();
+            return _context.UserBalances.Find(x => x.UserId == id).FirstOrDefault();
         }
 
         public string Add(UserSettings item)
