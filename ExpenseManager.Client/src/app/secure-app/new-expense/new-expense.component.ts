@@ -10,7 +10,7 @@ import { ExpenseService } from '../services/expense.service';
   styleUrls: ['./new-expense.component.css']
 })
 export class NewExpenseComponent implements OnInit {
-  userId = "5b69aa4c544dfdd27f4e3c70";
+  userId = "5b69aa4c544dfdd27f4e3c71";
   model = new Expense();
 
   constructor(

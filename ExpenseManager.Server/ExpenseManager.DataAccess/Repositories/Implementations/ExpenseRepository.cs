@@ -52,9 +52,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Expense> GetInInterval(DateTime startDate, DateTime endDate)
+        public IEnumerable<Expense> GetInIntervalForUser(string userId, DateTime startDate, DateTime endDate)
         {
-            var bQuery = "{'date':{$gte: ISODate('" + startDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz") 
+            var bQuery = "{'userId': ObjectId('" + userId + "'), " +
+                "'date':{$gte: ISODate('" + startDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz") 
                 + "'), $lte: ISODate('" + endDate.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz") + "')}}";
             var filter = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(bQuery);
             return _context.Expenses.Find(filter).ToList().OrderByDescending(expense => expense.Date);

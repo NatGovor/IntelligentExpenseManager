@@ -21,7 +21,7 @@ export class ExpenseService {
     private http: HttpClient) { }
 
   getExpenses(): Observable<DayExpenses[]> {
-    let userId = "5b69aa4c544dfdd27f4e3c70";
+    let userId = "5b69aa4c544dfdd27f4e3c71";
     const url = `${this.expensesUrl}/user/${userId}`;
     return this.http.get<Object>(url)
       .pipe(

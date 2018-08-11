@@ -83,7 +83,8 @@ namespace ExpenseManager.Api.Controllers
                 return NotFound();
             }
 
-            _userBalanceService.UpdateBalance(id, spending.Spending, spending.Date);
+            //_userBalanceService.UpdateBalance(id, spending.Spending, spending.Date);
+            var result = _userBalanceService.IsBalanceGood(id, spending.Date);
             return NoContent();
         }
     }

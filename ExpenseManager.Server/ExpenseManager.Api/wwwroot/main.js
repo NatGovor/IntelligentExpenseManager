@@ -420,7 +420,7 @@ var NewExpenseComponent = /** @class */ (function () {
     function NewExpenseComponent(expenseService, location) {
         this.expenseService = expenseService;
         this.location = location;
-        this.userId = "5b69aa4c544dfdd27f4e3c70";
+        this.userId = "5b69aa4c544dfdd27f4e3c71";
         this.model = new _models_expense__WEBPACK_IMPORTED_MODULE_2__["Expense"]();
     }
     NewExpenseComponent.prototype.ngOnInit = function () {
@@ -778,7 +778,7 @@ var ExpenseService = /** @class */ (function () {
     }
     ExpenseService.prototype.getExpenses = function () {
         var _this = this;
-        var userId = "5b69aa4c544dfdd27f4e3c70";
+        var userId = "5b69aa4c544dfdd27f4e3c71";
         var url = this.expensesUrl + "/user/" + userId;
         return this.http.get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (expenses) {
@@ -866,7 +866,7 @@ var SharedExpenseService = /** @class */ (function () {
         var userId = "5b69aa4c544dfdd27f4e3c70";
         var url = this.expensesUrl + "/" + userId;
         return this.http.get(url)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched sharedExpenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getExpenses', [])));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched sharedExpenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getSharedExpenses', [])));
     };
     SharedExpenseService.prototype.log = function (message) {
         console.log('SharedExpenseService: ' + message);

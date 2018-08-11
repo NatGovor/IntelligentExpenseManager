@@ -10,6 +10,6 @@ namespace ExpenseManager.DataAccess.Repositories.Interfaces
     {
         Expense GetByIds(string id, string sharedExpenseId);
 
-        IEnumerable<Expense> GetInInterval(DateTime startDate, DateTime endDate);
+        IEnumerable<Expense> GetInIntervalForUser(string userId, DateTime startDate, DateTime endDate);
     }
 }
