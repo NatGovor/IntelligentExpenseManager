@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 
 import { Expense } from '../models/expense';
 import { ExpenseService } from '../services/expense.service';
+import { BalanceService } from '../services/balance.service';
 
 @Component({
   selector: 'app-new-expense',
@@ -15,6 +16,7 @@ export class NewExpenseComponent implements OnInit {
 
   constructor(
     private expenseService: ExpenseService,
+    private balanceService: BalanceService,
     private location: Location
   ) { }
 
@@ -25,7 +27,20 @@ export class NewExpenseComponent implements OnInit {
     this.model.userId = this.userId;
     this.expenseService.addExpense(this.model)
       .subscribe(expense => {
-        this.location.back();
+        this.balanceService.checkBalance(this.model.date)
+          .subscribe(result => {
+            console.log(result);
+            // if expense belongs to current month => update state
+            let currentDate = new Date();
+            let expenseDate = new Date(this.model.date);
+            if (currentDate.getMonth() == expenseDate.getMonth()) {
+              if (!result) {
+                alert("Danger");
+              }
+              this.balanceService.updateBalance(result);
+            }
+            this.location.back();
+          });
       });
   }
 

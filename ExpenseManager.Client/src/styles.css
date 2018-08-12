@@ -33,6 +33,14 @@ ul.items-list li {
   color: #de3838;
 }
 
+.positive-state {
+  background-color: #50c797 !important;
+}
+
+.negative-state {
+  background-color: #de3838 !important; 
+}
+
 .circle-btn-wrapper {
   position: fixed;
   bottom: 0;

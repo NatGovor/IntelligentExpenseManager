@@ -403,6 +403,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _models_expense__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/expense */ "./src/app/secure-app/models/expense.ts");
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/expense.service */ "./src/app/secure-app/services/expense.service.ts");
+/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -416,9 +417,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var NewExpenseComponent = /** @class */ (function () {
-    function NewExpenseComponent(expenseService, location) {
+    function NewExpenseComponent(expenseService, balanceService, location) {
         this.expenseService = expenseService;
+        this.balanceService = balanceService;
         this.location = location;
         this.userId = "5b69aa4c544dfdd27f4e3c71";
         this.model = new _models_expense__WEBPACK_IMPORTED_MODULE_2__["Expense"]();
@@ -430,7 +433,20 @@ var NewExpenseComponent = /** @class */ (function () {
         this.model.userId = this.userId;
         this.expenseService.addExpense(this.model)
             .subscribe(function (expense) {
-            _this.location.back();
+            _this.balanceService.checkBalance(_this.model.date)
+                .subscribe(function (result) {
+                console.log(result);
+                // if expense belongs to current month => update state
+                var currentDate = new Date();
+                var expenseDate = new Date(_this.model.date);
+                if (currentDate.getMonth() == expenseDate.getMonth()) {
+                    if (!result) {
+                        alert("Danger");
+                    }
+                    _this.balanceService.updateBalance(result);
+                }
+                _this.location.back();
+            });
         });
     };
     NewExpenseComponent = __decorate([
@@ -440,6 +456,7 @@ var NewExpenseComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./new-expense.component.css */ "./src/app/secure-app/new-expense/new-expense.component.css")]
         }),
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_3__["ExpenseService"],
+            _services_balance_service__WEBPACK_IMPORTED_MODULE_4__["BalanceService"],
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["Location"]])
     ], NewExpenseComponent);
     return NewExpenseComponent;
@@ -634,7 +651,7 @@ module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-nav\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"col-10\">Intellginet Expense Manager</div>\r\n        <div class=\"col-2\">\r\n          <img src=\"assets/bell-icon.svg\"/>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"nav\">\r\n      <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"col-10\">Intellginet Expense Manager</div>\r\n        <div class=\"col-2\">\r\n          <img src=\"assets/bell-icon.svg\"/>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"nav\">\r\n      <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -649,21 +666,53 @@ module.exports = "<div class=\"custom-nav\">\r\n    <div class=\"container\">\r\
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecureAppComponent", function() { return SecureAppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var SecureAppComponent = /** @class */ (function () {
-    function SecureAppComponent() {
+    function SecureAppComponent(balanceService) {
+        var _this = this;
+        this.balanceService = balanceService;
+        this.balanceStateClass = '';
+        this.subscription = balanceService.balanceUpdated$.subscribe(function (state) {
+            _this.getBalanceStateClass(state);
+        });
     }
+    SecureAppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var currentDate = new Date();
+        this.balanceService.checkBalance(currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate())
+            .subscribe(function (result) {
+            console.log(result);
+            _this.getBalanceStateClass(result);
+        });
+    };
+    SecureAppComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    SecureAppComponent.prototype.getBalanceStateClass = function (balanceState) {
+        if (balanceState) {
+            this.balanceStateClass = 'positive-state';
+        }
+        else {
+            this.balanceStateClass = 'negative-state';
+        }
+    };
     SecureAppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./secure-app.component.html */ "./src/app/secure-app/secure-app.component.html"),
             styles: [__webpack_require__(/*! ./secure-app.component.css */ "./src/app/secure-app/secure-app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"]])
     ], SecureAppComponent);
     return SecureAppComponent;
 }());
@@ -733,6 +782,83 @@ var SecureAppModule = /** @class */ (function () {
         })
     ], SecureAppModule);
     return SecureAppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/secure-app/services/balance.service.ts":
+/*!********************************************************!*\
+  !*** ./src/app/secure-app/services/balance.service.ts ***!
+  \********************************************************/
+/*! exports provided: BalanceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BalanceService", function() { return BalanceService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+};
+var BalanceService = /** @class */ (function () {
+    function BalanceService(http) {
+        this.http = http;
+        this.balanceUpdatedSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.balanceUpdated$ = this.balanceUpdatedSource.asObservable();
+        this.balancesUrl = 'api/balances'; // URL to web api
+    }
+    BalanceService.prototype.updateBalance = function (state) {
+        this.balanceUpdatedSource.next(state);
+    };
+    BalanceService.prototype.checkBalance = function (date) {
+        var _this = this;
+        var userId = "5b69aa4c544dfdd27f4e3c71";
+        var url = this.balancesUrl + "/" + userId + "/" + date;
+        return this.http.get(url)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (result) {
+            _this.log("fetched balance");
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('checkExpenses')));
+    };
+    BalanceService.prototype.log = function (message) {
+        console.log('ExpenseService: ' + message);
+    };
+    BalanceService.prototype.handleError = function (operation, result) {
+        var _this = this;
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            _this.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
+    };
+    BalanceService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], BalanceService);
+    return BalanceService;
 }());
 
 

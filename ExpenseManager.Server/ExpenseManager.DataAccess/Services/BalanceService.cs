@@ -22,15 +22,17 @@ namespace ExpenseManager.DataAccess.Services
 
         public bool IsBalanceGood(string userId, DateTime date)
         {
+            // Get User's Settings
             UserSettings userSettings = _userSettingsRepository.GetById(userId);
 
+            // Get the range of the month
             DateTime startDate = new DateTime(date.Year, date.Month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
+            // Calculate the numbe of days in the month
             int weekDaysCount = 0;
             int saturdaysCount = 0;
             int sundaysCount = 0;
-
             for (DateTime day = startDate; day <= endDate; day = day.AddDays(1))
             {
                 if (day.DayOfWeek == DayOfWeek.Saturday)
@@ -47,6 +49,7 @@ namespace ExpenseManager.DataAccess.Services
                 }
             }
 
+            // Calculate balance and safety pillow for the month
             decimal balance = weekDaysCount * userSettings.MinWeekday +
                 saturdaysCount * userSettings.MinSaturday + sundaysCount * userSettings.MinSunday;
             decimal safetyPillow = userSettings.MaximumToSpend - balance;
@@ -54,7 +57,7 @@ namespace ExpenseManager.DataAccess.Services
 
             if (date.Month == DateTime.Now.Month)
             {
-                endDate = new DateTime(date.Year, date.Month, date.Day);
+                endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             }      
 
             for (DateTime day = startDate; day <= endDate; day = day.AddDays(1))
