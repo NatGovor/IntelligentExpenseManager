@@ -30,13 +30,10 @@ export class NewExpenseComponent implements OnInit {
         this.balanceService.checkBalance(this.model.date)
           .subscribe(result => {
             console.log(result);
-            // if expense belongs to current month => update state
+            // if expense belongs to current month => update state of the app
             let currentDate = new Date();
             let expenseDate = new Date(this.model.date);
             if (currentDate.getMonth() == expenseDate.getMonth()) {
-              if (!result) {
-                alert("Danger");
-              }
               this.balanceService.updateBalance(result);
             }
             this.location.back();

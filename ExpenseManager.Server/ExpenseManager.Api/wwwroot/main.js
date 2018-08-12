@@ -183,6 +183,57 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/common-services/helpers.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/common-services/helpers.service.ts ***!
+  \****************************************************/
+/*! exports provided: HelpersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HelpersService", function() { return HelpersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var HelpersService = /** @class */ (function () {
+    function HelpersService() {
+    }
+    HelpersService.prototype.getStorageProperty = function (name) {
+        if (localStorage.getItem(name) != null) {
+            var value = localStorage.getItem(name);
+            if (value[0] === '{' || value[0] === '[') {
+                return JSON.parse(value);
+            }
+            return value;
+        }
+        return null;
+    };
+    HelpersService.prototype.setStorageProperty = function (name, value) {
+        if (value === null) {
+            localStorage.removeItem(name);
+        }
+        else {
+            localStorage.setItem(name, typeof (value) === 'string' ? value : JSON.stringify(value));
+        }
+    };
+    HelpersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], HelpersService);
+    return HelpersService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/secure-app/debts/debts.component.css":
 /*!******************************************************!*\
   !*** ./src/app/secure-app/debts/debts.component.css ***!
@@ -436,13 +487,10 @@ var NewExpenseComponent = /** @class */ (function () {
             _this.balanceService.checkBalance(_this.model.date)
                 .subscribe(function (result) {
                 console.log(result);
-                // if expense belongs to current month => update state
+                // if expense belongs to current month => update state of the app
                 var currentDate = new Date();
                 var expenseDate = new Date(_this.model.date);
                 if (currentDate.getMonth() == expenseDate.getMonth()) {
-                    if (!result) {
-                        alert("Danger");
-                    }
                     _this.balanceService.updateBalance(result);
                 }
                 _this.location.back();
@@ -667,6 +715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecureAppComponent", function() { return SecureAppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -678,17 +727,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var SecureAppComponent = /** @class */ (function () {
-    function SecureAppComponent(balanceService) {
+    function SecureAppComponent(balanceService, helpersService) {
         var _this = this;
         this.balanceService = balanceService;
+        this.helpersService = helpersService;
         this.balanceStateClass = '';
+        this.warningText = "You are getting closer to your limit! Reduce your expenses if " +
+            "you do not want to overspend this month.";
+        this.congratulationText = "Congratulations! You have controlled your " +
+            "expenses carefully and now you are going to meet the set budget by the end of the month";
         this.subscription = balanceService.balanceUpdated$.subscribe(function (state) {
             _this.getBalanceStateClass(state);
         });
     }
     SecureAppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var prevBalanceStatus = this.helpersService.getStorageProperty("balanceStatus");
+        if (prevBalanceStatus === "false") {
+            this.balanceStateClass = "negative-state";
+        }
         var currentDate = new Date();
         this.balanceService.checkBalance(currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate())
             .subscribe(function (result) {
@@ -699,12 +758,26 @@ var SecureAppComponent = /** @class */ (function () {
     SecureAppComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
-    SecureAppComponent.prototype.getBalanceStateClass = function (balanceState) {
-        if (balanceState) {
+    SecureAppComponent.prototype.getBalanceStateClass = function (currentBalanceState) {
+        if (currentBalanceState) {
             this.balanceStateClass = 'positive-state';
         }
         else {
             this.balanceStateClass = 'negative-state';
+        }
+        var balanceStatus = this.helpersService.getStorageProperty("balanceStatus");
+        if (balanceStatus === null) {
+            if (!currentBalanceState) {
+                alert(this.warningText);
+                this.helpersService.setStorageProperty("balanceStatus", currentBalanceState);
+            }
+        }
+        else {
+            balanceStatus = balanceStatus === "true"; // convert to boolean
+            if (balanceStatus !== currentBalanceState) {
+                alert(this.congratulationText);
+                this.helpersService.setStorageProperty("balanceStatus", null);
+            }
         }
     };
     SecureAppComponent = __decorate([
@@ -712,7 +785,8 @@ var SecureAppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./secure-app.component.html */ "./src/app/secure-app/secure-app.component.html"),
             styles: [__webpack_require__(/*! ./secure-app.component.css */ "./src/app/secure-app/secure-app.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"]])
+        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_2__["HelpersService"]])
     ], SecureAppComponent);
     return SecureAppComponent;
 }());

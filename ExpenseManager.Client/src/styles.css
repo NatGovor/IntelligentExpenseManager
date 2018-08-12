@@ -26,7 +26,7 @@ ul.items-list li {
 }
 
 .positive {
-  color: #50c797;
+  color: #5bc5a7;
 }
 
 .negative {
@@ -34,7 +34,7 @@ ul.items-list li {
 }
 
 .positive-state {
-  background-color: #50c797 !important;
+  background-color: #5bc5a7 !important;
 }
 
 .negative-state {
