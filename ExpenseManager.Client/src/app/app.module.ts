@@ -8,6 +8,7 @@ import { LoginComponent } from './unsecure-app/login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SecureAppModule } from './secure-app/secure-app.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SecureAppModule } from './secure-app/secure-app.module';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgbModule.forRoot(),
     AppRoutingModule,
     SecureAppModule
   ],

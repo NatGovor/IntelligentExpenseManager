@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { NgbdModalContent } from './modals/modal-content';
+
 import { ExpensesComponent } from './expenses/expenses.component';
 import { SecureAppComponent } from './secure-app.component';
 
@@ -26,7 +28,11 @@ import { NewExpenseComponent } from './new-expense/new-expense.component';
     DebtsComponent,
     ReportsComponent,
     MakePositivePipe,
-    NewExpenseComponent
+    NewExpenseComponent,
+    NgbdModalContent
+  ],
+  entryComponents: [
+    NgbdModalContent
   ]
 })
 export class SecureAppModule { }
