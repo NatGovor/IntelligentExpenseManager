@@ -679,3 +679,70 @@ db.expenses.insert([
         sharedExpenseId: sharedExpenses[7]._id
     }
 ]);
+
+db.userSettings.insert([
+    {
+        _id: users[0]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[1]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[2]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[3]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[4]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[5]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[6]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    },
+    {
+        _id: users[7]._id,
+        max: 400,
+        percentage: 20,
+        minEveryday: 10,
+        minSaturday: 10,
+        minSunday: 10
+    }
+]);
