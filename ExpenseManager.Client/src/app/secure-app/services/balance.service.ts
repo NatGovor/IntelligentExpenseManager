@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { HelpersService } from '../../common-services/helpers.service';
+import { User } from '../models/user';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,15 +20,17 @@ export class BalanceService {
   private balancesUrl = 'api/balances'; // URL to web api
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private helpersService: HelpersService
+  ) { }
 
   updateBalance(state: boolean) {
     this.balanceUpdatedSource.next(state);
   }
 
   checkBalance(date): Observable<boolean> {
-    let userId = "5b69aa4c544dfdd27f4e3c71";
-    const url = `${this.balancesUrl}/${userId}/${date}`;
+    let user = this.helpersService.getStorageProperty("user") as User;
+    const url = `${this.balancesUrl}/${user.id}/${date}`;
     return this.http.get<boolean>(url)
       .pipe(
         tap(result => {

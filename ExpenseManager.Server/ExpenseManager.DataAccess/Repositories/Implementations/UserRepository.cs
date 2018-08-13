@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseManager.DataAccess.Repositories.Implementations
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository<User>
     {
         private readonly DbContext _context = null;
 
@@ -38,6 +38,11 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         public void Update(User item)
         {
             throw new NotImplementedException();
+        }
+
+        public User GetByEmail(string email)
+        {
+            return _context.Users.Find(user => user.Email == email).FirstOrDefault();
         }
     }
 }

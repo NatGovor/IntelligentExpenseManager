@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { Expense } from '../models/expense';
 import { ExpenseService } from '../services/expense.service';
 import { BalanceService } from '../services/balance.service';
+import { HelpersService } from '../../common-services/helpers.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-new-expense',
@@ -11,12 +13,12 @@ import { BalanceService } from '../services/balance.service';
   styleUrls: ['./new-expense.component.css']
 })
 export class NewExpenseComponent implements OnInit {
-  userId = "5b69aa4c544dfdd27f4e3c71";
   model = new Expense();
 
   constructor(
     private expenseService: ExpenseService,
     private balanceService: BalanceService,
+    private helpersService: HelpersService,
     private location: Location
   ) { }
 
@@ -24,7 +26,8 @@ export class NewExpenseComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.model.userId = this.userId;
+    let user = this.helpersService.getStorageProperty("user") as User;
+    this.model.userId = user.id;
     this.expenseService.addExpense(this.model)
       .subscribe(expense => {
         this.balanceService.checkBalance(this.model.date)

@@ -16,12 +16,12 @@ namespace ExpenseManager.Api.Controllers
     {
         private readonly IExtendedRepository<Group> _groupRepository;
         private readonly ISharedExpenseRepository<SharedExpense> _sharedExpenseRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserRepository<User> _userRepository;
         private readonly IExpenseRepository<Expense> _expenseRepository;
 
         public SharedExpensesController(IExtendedRepository<Group> groupRepository,
             ISharedExpenseRepository<SharedExpense> sharedExpenseRepository,
-            IRepository<User> userRepository,
+            IUserRepository<User> userRepository,
             IExpenseRepository<Expense> expenseRepository)
         {
             _groupRepository = groupRepository;

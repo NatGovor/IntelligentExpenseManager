@@ -80,6 +80,7 @@
     <Compile Include="Repositories\Interfaces\IExtendedRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISharedExpenseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Services\BalanceService.cs" />
   </ItemGroup>
   <ItemGroup>

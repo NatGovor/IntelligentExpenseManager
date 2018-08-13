@@ -6,6 +6,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Expense } from '../models/expense';
 import { DayExpenses } from '../models/day-expenses';
+import { HelpersService } from '../../common-services/helpers.service';
+import { User } from '../models/user';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,11 +20,13 @@ export class ExpenseService {
   private expensesUrl = 'api/expenses'; // URL to web api
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private helpersService: HelpersService
+  ) { }
 
   getExpenses(): Observable<DayExpenses[]> {
-    let userId = "5b69aa4c544dfdd27f4e3c71";
-    const url = `${this.expensesUrl}/user/${userId}`;
+    let user = this.helpersService.getStorageProperty("user") as User;
+    const url = `${this.expensesUrl}/user/${user.id}`;
     return this.http.get<Object>(url)
       .pipe(
         map(expenses => {

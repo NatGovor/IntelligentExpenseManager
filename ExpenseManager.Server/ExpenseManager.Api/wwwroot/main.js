@@ -186,6 +186,73 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/common-services/auth.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/common-services/auth.service.ts ***!
+  \*************************************************/
+/*! exports provided: AuthService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthService", function() { return AuthService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+};
+var AuthService = /** @class */ (function () {
+    function AuthService(http) {
+        this.http = http;
+        this.authUrl = 'api/auth'; // URL to web api
+    }
+    AuthService.prototype.login = function (email, password) {
+        var _this = this;
+        return this.http.post(this.authUrl, { 'email': email, 'password': password }, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (result) { return _this.log("authenticate user"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('authenticate user')));
+    };
+    AuthService.prototype.log = function (message) {
+        console.log('AuthService: ' + message);
+    };
+    AuthService.prototype.handleError = function (operation, result) {
+        var _this = this;
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            _this.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
+    };
+    AuthService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], AuthService);
+    return AuthService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/common-services/helpers.service.ts":
 /*!****************************************************!*\
   !*** ./src/app/common-services/helpers.service.ts ***!
@@ -381,10 +448,10 @@ var ExpensesComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/secure-app/modal-content.ts":
-/*!*********************************************!*\
-  !*** ./src/app/secure-app/modal-content.ts ***!
-  \*********************************************/
+/***/ "./src/app/secure-app/modals/modal-content.ts":
+/*!****************************************************!*\
+  !*** ./src/app/secure-app/modals/modal-content.ts ***!
+  \****************************************************/
 /*! exports provided: NgbdModalContent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -511,6 +578,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_expense__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/expense */ "./src/app/secure-app/models/expense.ts");
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/expense.service */ "./src/app/secure-app/services/expense.service.ts");
 /* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -525,19 +593,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var NewExpenseComponent = /** @class */ (function () {
-    function NewExpenseComponent(expenseService, balanceService, location) {
+    function NewExpenseComponent(expenseService, balanceService, helpersService, location) {
         this.expenseService = expenseService;
         this.balanceService = balanceService;
+        this.helpersService = helpersService;
         this.location = location;
-        this.userId = "5b69aa4c544dfdd27f4e3c71";
         this.model = new _models_expense__WEBPACK_IMPORTED_MODULE_2__["Expense"]();
     }
     NewExpenseComponent.prototype.ngOnInit = function () {
     };
     NewExpenseComponent.prototype.onSubmit = function () {
         var _this = this;
-        this.model.userId = this.userId;
+        var user = this.helpersService.getStorageProperty("user");
+        this.model.userId = user.id;
         this.expenseService.addExpense(this.model)
             .subscribe(function (expense) {
             _this.balanceService.checkBalance(_this.model.date)
@@ -561,6 +631,7 @@ var NewExpenseComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_3__["ExpenseService"],
             _services_balance_service__WEBPACK_IMPORTED_MODULE_4__["BalanceService"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_5__["HelpersService"],
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["Location"]])
     ], NewExpenseComponent);
     return NewExpenseComponent;
@@ -773,7 +844,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
 /* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var _modal_content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modal-content */ "./src/app/secure-app/modal-content.ts");
+/* harmony import */ var _modals_modal_content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/modal-content */ "./src/app/secure-app/modals/modal-content.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -844,7 +915,7 @@ var SecureAppComponent = /** @class */ (function () {
         }
     };
     SecureAppComponent.prototype.showPopup = function (title, text, headerClassName) {
-        var modalRef = this.modalService.open(_modal_content__WEBPACK_IMPORTED_MODULE_4__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modal_content__WEBPACK_IMPORTED_MODULE_4__["NgbdModalContent"]);
         modalRef.componentInstance.title = title;
         modalRef.componentInstance.text = text;
         modalRef.componentInstance.headerClassName = headerClassName;
@@ -878,7 +949,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _modal_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal-content */ "./src/app/secure-app/modal-content.ts");
+/* harmony import */ var _modals_modal_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modals/modal-content */ "./src/app/secure-app/modals/modal-content.ts");
 /* harmony import */ var _expenses_expenses_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./expenses/expenses.component */ "./src/app/secure-app/expenses/expenses.component.ts");
 /* harmony import */ var _secure_app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./secure-app.component */ "./src/app/secure-app/secure-app.component.ts");
 /* harmony import */ var _secure_app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./secure-app-routing.module */ "./src/app/secure-app/secure-app-routing.module.ts");
@@ -924,10 +995,10 @@ var SecureAppModule = /** @class */ (function () {
                 _reports_reports_component__WEBPACK_IMPORTED_MODULE_9__["ReportsComponent"],
                 _pipes_make_positive_pipe__WEBPACK_IMPORTED_MODULE_10__["MakePositivePipe"],
                 _new_expense_new_expense_component__WEBPACK_IMPORTED_MODULE_11__["NewExpenseComponent"],
-                _modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]
+                _modals_modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]
             ],
             entryComponents: [
-                _modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]
+                _modals_modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]
             ]
         })
     ], SecureAppModule);
@@ -952,6 +1023,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -965,12 +1037,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var httpOptions = {
     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
 };
 var BalanceService = /** @class */ (function () {
-    function BalanceService(http) {
+    function BalanceService(http, helpersService) {
         this.http = http;
+        this.helpersService = helpersService;
         this.balanceUpdatedSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.balanceUpdated$ = this.balanceUpdatedSource.asObservable();
         this.balancesUrl = 'api/balances'; // URL to web api
@@ -980,8 +1054,8 @@ var BalanceService = /** @class */ (function () {
     };
     BalanceService.prototype.checkBalance = function (date) {
         var _this = this;
-        var userId = "5b69aa4c544dfdd27f4e3c71";
-        var url = this.balancesUrl + "/" + userId + "/" + date;
+        var user = this.helpersService.getStorageProperty("user");
+        var url = this.balancesUrl + "/" + user.id + "/" + date;
         return this.http.get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (result) {
             _this.log("fetched balance");
@@ -1006,7 +1080,8 @@ var BalanceService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__["HelpersService"]])
     ], BalanceService);
     return BalanceService;
 }());
@@ -1030,6 +1105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _models_day_expenses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/day-expenses */ "./src/app/secure-app/models/day-expenses.ts");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1044,18 +1120,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var httpOptions = {
     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
 };
 var ExpenseService = /** @class */ (function () {
-    function ExpenseService(http) {
+    function ExpenseService(http, helpersService) {
         this.http = http;
+        this.helpersService = helpersService;
         this.expensesUrl = 'api/expenses'; // URL to web api
     }
     ExpenseService.prototype.getExpenses = function () {
         var _this = this;
-        var userId = "5b69aa4c544dfdd27f4e3c71";
-        var url = this.expensesUrl + "/user/" + userId;
+        var user = this.helpersService.getStorageProperty("user");
+        var url = this.expensesUrl + "/user/" + user.id;
         return this.http.get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (expenses) {
             var dayExpenses = [];
@@ -1093,7 +1171,8 @@ var ExpenseService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_5__["HelpersService"]])
     ], ExpenseService);
     return ExpenseService;
 }());
@@ -1116,6 +1195,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1129,18 +1209,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var httpOptions = {
     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
 };
 var SharedExpenseService = /** @class */ (function () {
-    function SharedExpenseService(http) {
+    function SharedExpenseService(http, helpersService) {
         this.http = http;
+        this.helpersService = helpersService;
         this.expensesUrl = 'api/sharedexpenses'; // URL to web api
     }
     SharedExpenseService.prototype.getSharedExpenses = function () {
         var _this = this;
-        var userId = "5b69aa4c544dfdd27f4e3c70";
-        var url = this.expensesUrl + "/" + userId;
+        var user = this.helpersService.getStorageProperty("user");
+        var url = this.expensesUrl + "/" + user.id;
         return this.http.get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expenses) { return _this.log("fetched sharedExpenses"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getSharedExpenses', [])));
     };
@@ -1163,7 +1245,8 @@ var SharedExpenseService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__["HelpersService"]])
     ], SharedExpenseService);
     return SharedExpenseService;
 }());
@@ -1300,6 +1383,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common-services/auth.service */ "./src/app/common-services/auth.service.ts");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1311,20 +1396,36 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(router) {
+    function LoginComponent(router, authService, helpersService) {
         this.router = router;
+        this.authService = authService;
+        this.helpersService = helpersService;
     }
     LoginComponent.prototype.login = function () {
+        var _this = this;
         if (this.email && this.password) {
-            this.router.navigate(['/user/expenses']);
+            this.authService.login(this.email, this.password)
+                .subscribe(function (result) {
+                if (result.isSuccess) {
+                    _this.helpersService.setStorageProperty("user", result.user);
+                    _this.router.navigate(['/user/expenses']);
+                }
+                else {
+                    alert('Invalid login or password');
+                }
+            });
         }
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/unsecure-app/login/login.component.html")
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _common_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_3__["HelpersService"]])
     ], LoginComponent);
     return LoginComponent;
 }());

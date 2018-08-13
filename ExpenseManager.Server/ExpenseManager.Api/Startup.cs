@@ -37,7 +37,7 @@ namespace ExpenseManager_Server
                     = Configuration.GetSection("MongoConnection:Database").Value;
             });
 
-            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IUserRepository<User>, UserRepository>();
             services.AddTransient<IExtendedRepository<Group>, GroupRepository>();
             services.AddTransient<IExpenseRepository<Expense>, ExpenseRepository>();
             services.AddTransient<ISharedExpenseRepository<SharedExpense>, SharedExpenseRepository>();
