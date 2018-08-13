@@ -5,7 +5,8 @@ import { HelpersService } from '../../common-services/helpers.service';
 import { User } from '../../secure-app/models/user';
 
 @Component({
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit {
   email: string;

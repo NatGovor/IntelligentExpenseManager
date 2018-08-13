@@ -1,11 +1,15 @@
-<div class="container">
+<div class="container main">
     <ul class="items-list">
       <li *ngFor="let expense of sharedExpenses">
-        <div>{{expense.date | date}}</div>
-        <div>{{expense.description}}</div>
-        <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>
-        <div [ngClass]="addClass(expense)">
-          {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}
+        <div class="date-header">{{expense.date | date}}</div>
+        <div class="row">
+            <div class="col-5">{{expense.description}}</div>
+            <div class="col-7 paid-section">
+              <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>
+              <div [ngClass]="addClass(expense)">
+                {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}
+              </div>
+            </div>
         </div>
       </li>
     </ul>

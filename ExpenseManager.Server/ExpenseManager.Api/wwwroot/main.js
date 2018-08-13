@@ -384,7 +384,7 @@ var DebtsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".date-header {\r\n  font-weight: bold;\r\n  color: #6f6f6f;\r\n}\r\n\r\n.close { \r\n  float: none;\r\n}\r\n"
+module.exports = ".close { \r\n  float: none;\r\n}\r\n"
 
 /***/ }),
 
@@ -395,7 +395,7 @@ module.exports = ".date-header {\r\n  font-weight: bold;\r\n  color: #6f6f6f;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses; let i = index\">\n        <div>\n          <div class=\"date-header\">\n            {{day.date | date}}\n          </div>\n          <div *ngFor=\"let expense of day.expenses\" class=\"row\">\n            <div class=\"col-9\">\n              {{expense.description}}\n            </div>\n            <div class=\"col-2 negative\">\n              {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n            </div>\n            <div class=\"col-1\">\n              <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"deleteExpense(expense, i)\">\n                <span aria-hidden=\"true\">&times;</span>\n              </button>\n            </div>\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
+module.exports = "<div class=\"container main\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses; let i = index\">\n        <div>\n          <div class=\"date-header\">\n            {{day.date | date}}\n          </div>\n          <div *ngFor=\"let expense of day.expenses\" class=\"row\">\n            <div class=\"col-9\">\n              {{expense.description}}\n            </div>\n            <div class=\"col-2 negative\">\n              {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n            </div>\n            <div class=\"col-1\">\n              <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"deleteExpense(expense, i)\">\n                <span aria-hidden=\"true\">&times;</span>\n              </button>\n            </div>\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
 
 /***/ }),
 
@@ -592,7 +592,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form (ngSubmit)=\"onSubmit()\" #expenseForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label for=\"description\">Description</label>\n    <input type=\"text\" class=\"form-control\" id=\"description\"\n      required\n      [(ngModel)]=\"model.description\" name=\"description\"/>\n  </div>\n  <div class=\"form-group\">\n      <label for=\"amount\">Amount (£)</label>\n      <input type=\"number\" class=\"form-control\" id=\"amount\"\n        required\n        [(ngModel)]=\"model.amount\" name=\"amount\"/>\n  </div>\n  <div class=\"form-group\">\n      <label for=\"date\">Date</label>\n      <input type=\"date\" class=\"form-control\" id=\"date\"\n        required\n        [(ngModel)]=\"model.date\" name=\"date\"/>\n  </div>\n  <button type=\"submit\"\n    class=\"btn btn-default\"\n    [disabled]=\"!expenseForm.form.valid\">\n    Submit\n  </button>\n</form>\n"
+module.exports = "<div class=\"container main\">\n  <h5>Add expense</h5>\n  <form (ngSubmit)=\"onSubmit()\" #expenseForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"description\">Description</label>\n      <input type=\"text\" class=\"form-control\" id=\"description\"\n        required\n        [(ngModel)]=\"model.description\" name=\"description\"/>\n    </div>\n    <div class=\"form-group\">\n        <label for=\"amount\">Amount (£)</label>\n        <input type=\"number\" class=\"form-control\" id=\"amount\"\n          required\n          [(ngModel)]=\"model.amount\" name=\"amount\"/>\n    </div>\n    <div class=\"form-group\">\n        <label for=\"date\">Date</label>\n        <input type=\"date\" class=\"form-control\" id=\"date\"\n          required\n          [(ngModel)]=\"model.date\" name=\"date\"/>\n    </div>\n    <button type=\"submit\"\n      class=\"btn btn-long\"\n      [disabled]=\"!expenseForm.form.valid\">\n      Save\n    </button>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -848,7 +848,7 @@ var SecureAppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.custom-nav .vertical-align {\r\n  line-height: 45px;\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n\r\n.top-nav {\r\n  padding: 5px;\r\n}\r\n\r\n.top-left-nav img {\r\n  width: 23px;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.popover {\r\n  top: 36px;\r\n  left: 68%;\r\n}\r\n\r\n.popover div {\r\n  margin: 0 0 10px;\r\n}\r\n\r\n.popover div:last-child {\r\n  margin: 0;\r\n}\r\n"
+module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.custom-nav .vertical-align {\r\n  line-height: 45px;\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n\r\n.top-nav {\r\n  padding: 5px;\r\n}\r\n\r\n.top-left-nav img {\r\n  width: 23px;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.popover {\r\n  top: 36px;\r\n  left: 68%;\r\n}\r\n\r\n.popover div {\r\n  margin: 0 0 10px;\r\n}\r\n\r\n.popover div:last-child {\r\n  margin: 0;\r\n}\r\n\r\n.header img {\r\n  width: 25px;\r\n}\r\n\r\n.header .header-text {\r\n  display: inline-block;\r\n  position: relative;\r\n  left: 5px;\r\n  top: 1px;\r\n  font-weight: bold;\r\n}\r\n"
 
 /***/ }),
 
@@ -859,7 +859,7 @@ module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding\">Intellginet Expense Manager</div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@heroState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div>Profile settings</div>\r\n            <div (click)=\"logout()\">Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
+module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding header\">\r\n          <img src=\"assets/wallet-icon.png\">\r\n          <div class=\"header-text\">Intelliginet Expense Manager</div>\r\n        </div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@heroState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div>Profile settings</div>\r\n            <div (click)=\"logout()\">Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -1330,7 +1330,7 @@ var SharedExpenseService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".paid-section {\r\n  text-align: right;\r\n}\r\n"
 
 /***/ }),
 
@@ -1341,7 +1341,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <ul class=\"items-list\">\n      <li *ngFor=\"let expense of sharedExpenses\">\n        <div>{{expense.date | date}}</div>\n        <div>{{expense.description}}</div>\n        <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>\n        <div [ngClass]=\"addClass(expense)\">\n          {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n  <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
+module.exports = "<div class=\"container main\">\n    <ul class=\"items-list\">\n      <li *ngFor=\"let expense of sharedExpenses\">\n        <div class=\"date-header\">{{expense.date | date}}</div>\n        <div class=\"row\">\n            <div class=\"col-5\">{{expense.description}}</div>\n            <div class=\"col-7 paid-section\">\n              <div>{{getPayerName(expense)}} paid {{expense.totalAmount | currency:'GBP':'symbol':'1.2-2'}}</div>\n              <div [ngClass]=\"addClass(expense)\">\n                {{getDebtText(expense)}} {{expense.userDebt | makePositive | currency:'GBP':'symbol':'1.2-2'}}\n              </div>\n            </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n  <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
 
 /***/ }),
 
@@ -1428,6 +1428,17 @@ var SharedExpensesComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/unsecure-app/login/login.component.css":
+/*!********************************************************!*\
+  !*** ./src/app/unsecure-app/login/login.component.css ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header {\r\n  margin: 30% 0 30px;\r\n}\r\n\r\n.header img {\r\n  float: left;\r\n}\r\n\r\n.header h1 {\r\n  position: relative;\r\n  left: 15px;\r\n}\r\n"
+
+/***/ }),
+
 /***/ "./src/app/unsecure-app/login/login.component.html":
 /*!*********************************************************!*\
   !*** ./src/app/unsecure-app/login/login.component.html ***!
@@ -1435,7 +1446,7 @@ var SharedExpensesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-sm-4\">\r\n    <p>Enter Credentials to login:</p>\r\n    <div class=\"form-group\">\r\n      <label>Email: </label>\r\n      <input [(ngModel)]=\"email\" type=\"text\" class=\"form-control\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label>Password: </label>\r\n      <input [(ngModel)]=\"password\" type=\"password\" class=\"form-control\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <button (click)=\"login()\" type=\"submit\">Login</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container main\">\r\n  <div class=\"header\">\r\n    <img src=\"assets/wallet-icon.png\">\r\n    <h1>Intelligent Expense Manager</h1>\r\n  </div>\r\n  <div class=\"clearfix\"></div>\r\n  <div>\r\n    <h5>Enter Credentials to login:</h5>\r\n    <div class=\"form-group\">\r\n      <label>Email: </label>\r\n      <input [(ngModel)]=\"email\" type=\"text\" class=\"form-control\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label>Password: </label>\r\n      <input [(ngModel)]=\"password\" type=\"password\" class=\"form-control\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <button (click)=\"login()\" type=\"submit\" class=\"btn btn-long\">Login</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1495,7 +1506,8 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            template: __webpack_require__(/*! ./login.component.html */ "./src/app/unsecure-app/login/login.component.html")
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/unsecure-app/login/login.component.html"),
+            styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/unsecure-app/login/login.component.css")]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _common_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"],

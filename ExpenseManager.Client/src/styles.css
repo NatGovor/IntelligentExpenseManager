@@ -1,19 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 h1 {
-  color: #369;
+  color: #5bc5a7;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+  font-size: 150%;
 }
 
 h2, h3 {
-  color: #444;
+  color: #6f6f6f;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
+}
+
+h4, h5, h6 {
+  color: #6f6f6f;
 }
 
 body, input[text], button {
   color: #888;
   font-family: Cambria, Georgia;
+}
+
+.main {
+  padding-top: 10px;
 }
 
 ul.items-list {
@@ -23,6 +31,12 @@ ul.items-list {
 
 ul.items-list li {
   border-bottom: 1px solid #999;
+  margin-bottom: 15px;
+}
+
+.date-header {
+  font-weight: bold;
+  color: #6f6f6f;
 }
 
 .positive {
@@ -95,6 +109,10 @@ ul.items-list li {
 
 .no-margin {
   margin: 0;
+}
+
+.btn-long {
+  width: 100%;
 }
 
 /* everywhere else */

@@ -46,3 +46,15 @@ a.nav-link.active {
 .popover div:last-child {
   margin: 0;
 }
+
+.header img {
+  width: 25px;
+}
+
+.header .header-text {
+  display: inline-block;
+  position: relative;
+  left: 5px;
+  top: 1px;
+  font-weight: bold;
+}

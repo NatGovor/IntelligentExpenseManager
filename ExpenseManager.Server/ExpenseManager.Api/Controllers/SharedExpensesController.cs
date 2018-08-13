@@ -69,7 +69,7 @@ namespace ExpenseManager.Api.Controllers
                     result.Add(sharedExpenseModel);
                 });
             });
-            return result.OrderBy(x => x.Date).ToList();
+            return result.OrderByDescending(x => x.Date).ToList();
         }
     }
 }
