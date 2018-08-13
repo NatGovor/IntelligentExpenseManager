@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { BalanceService } from './services/balance.service';
 import { HelpersService } from '../common-services/helpers.service';
@@ -7,11 +8,24 @@ import { NgbdModalContent } from './modals/modal-content';
 
 @Component({
   templateUrl: './secure-app.component.html',
-  styleUrls: ['./secure-app.component.css']
+  styleUrls: ['./secure-app.component.css'],
+  animations: [
+    trigger('heroState', [
+      state('inactive', style({
+        transform: 'translateY(-200%)'
+      })),
+      state('active', style({
+        transform: 'translateY(0%)'
+      })),
+      transition('inactive => active', animate('400ms ease-in')),
+      transition('active => inactive', animate('400ms ease-out'))
+    ])
+  ]
 })
 export class SecureAppComponent implements OnInit, OnDestroy {
   balanceStateClass = '';
   subscription: Subscription;
+  state = "inactive";
 
   warningTitle = "Warning!";
   warningText = "You are getting closer to your limit! Reduce your expenses if " +
@@ -77,6 +91,10 @@ export class SecureAppComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.text = text;
     modalRef.componentInstance.headerClassName = headerClassName;
+  }
+
+  toggleSideMenu() {
+    this.state = this.state  === "active" ? "inactive" : "active";
   }
 
 }

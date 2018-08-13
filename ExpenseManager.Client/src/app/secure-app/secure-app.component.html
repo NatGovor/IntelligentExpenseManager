@@ -2,8 +2,14 @@
     <div class="row top-nav no-margin">
       <div class="col-9 no-padding">Intellginet Expense Manager</div>
       <div class="col-3 top-left-nav no-padding">
-        <img src="assets/menu.png"/>
+        <img src="assets/menu.png" (click)="toggleSideMenu()">
         <img src="assets/notification.png"/>
+      </div>
+      <div class="popover" [@heroState]="state">
+          <div class="popover-body">
+            <div>Profile settings</div>
+            <div>Log out</div>
+          </div>
       </div>
     </div>
     <nav class="row no-margin">

@@ -138,11 +138,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _unsecure_app_login_login_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./unsecure-app/login/login.component */ "./src/app/unsecure-app/login/login.component.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _secure_app_secure_app_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./secure-app/secure-app.module */ "./src/app/secure-app/secure-app.module.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _unsecure_app_login_login_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./unsecure-app/login/login.component */ "./src/app/unsecure-app/login/login.component.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _secure_app_secure_app_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./secure-app/secure-app.module */ "./src/app/secure-app/secure-app.module.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -158,25 +159,27 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _unsecure_app_login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
+                _unsecure_app_login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbModule"].forRoot(),
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
-                _secure_app_secure_app_module__WEBPACK_IMPORTED_MODULE_7__["SecureAppModule"]
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_9__["NgbModule"].forRoot(),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+                _secure_app_secure_app_module__WEBPACK_IMPORTED_MODULE_8__["SecureAppModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -823,7 +826,7 @@ var SecureAppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n"
+module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.custom-nav .vertical-align {\r\n  line-height: 45px;\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n\r\n.top-nav {\r\n  padding: 5px;\r\n}\r\n\r\n.top-left-nav img {\r\n  width: 23px;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.popover {\r\n  top: 36px;\r\n  left: 68%;\r\n}\r\n"
 
 /***/ }),
 
@@ -834,7 +837,7 @@ module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"col-10\">Intellginet Expense Manager</div>\r\n        <div class=\"col-2\">\r\n          <img src=\"assets/bell-icon.svg\"/>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"nav\">\r\n      <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
+module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding\">Intellginet Expense Manager</div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@heroState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div>Profile settings</div>\r\n            <div>Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -849,10 +852,11 @@ module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecureAppComponent", function() { return SecureAppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
-/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var _modals_modal_content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/modal-content */ "./src/app/secure-app/modals/modal-content.ts");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var _modals_modal_content__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modals/modal-content */ "./src/app/secure-app/modals/modal-content.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -867,6 +871,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SecureAppComponent = /** @class */ (function () {
     function SecureAppComponent(balanceService, helpersService, modalService) {
         var _this = this;
@@ -874,6 +879,7 @@ var SecureAppComponent = /** @class */ (function () {
         this.helpersService = helpersService;
         this.modalService = modalService;
         this.balanceStateClass = '';
+        this.state = "inactive";
         this.warningTitle = "Warning!";
         this.warningText = "You are getting closer to your limit! Reduce your expenses if " +
             "you do not want to overspend this month.";
@@ -923,19 +929,34 @@ var SecureAppComponent = /** @class */ (function () {
         }
     };
     SecureAppComponent.prototype.showPopup = function (title, text, headerClassName) {
-        var modalRef = this.modalService.open(_modals_modal_content__WEBPACK_IMPORTED_MODULE_4__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modal_content__WEBPACK_IMPORTED_MODULE_5__["NgbdModalContent"]);
         modalRef.componentInstance.title = title;
         modalRef.componentInstance.text = text;
         modalRef.componentInstance.headerClassName = headerClassName;
     };
+    SecureAppComponent.prototype.toggleSideMenu = function () {
+        this.state = this.state === "active" ? "inactive" : "active";
+    };
     SecureAppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./secure-app.component.html */ "./src/app/secure-app/secure-app.component.html"),
-            styles: [__webpack_require__(/*! ./secure-app.component.css */ "./src/app/secure-app/secure-app.component.css")]
+            styles: [__webpack_require__(/*! ./secure-app.component.css */ "./src/app/secure-app/secure-app.component.css")],
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('heroState', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('inactive', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
+                        transform: 'translateY(-200%)'
+                    })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('active', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
+                        transform: 'translateY(0%)'
+                    })),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["transition"])('inactive => active', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["animate"])('400ms ease-in')),
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["transition"])('active => inactive', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["animate"])('400ms ease-out'))
+                ])
+            ]
         }),
-        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_1__["BalanceService"],
-            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_2__["HelpersService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_3__["HelpersService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"]])
     ], SecureAppComponent);
     return SecureAppComponent;
 }());

@@ -29,7 +29,12 @@ a.nav-link.active {
 }
 
 .top-left-nav img {
-  width: 25px;
+  width: 23px;
   float: right;
   margin-left: 5px;
+}
+
+.popover {
+  top: 36px;
+  left: 68%;
 }
