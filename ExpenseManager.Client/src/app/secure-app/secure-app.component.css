@@ -4,6 +4,10 @@
   box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
+.custom-nav .vertical-align {
+  line-height: 45px;
+}
+
 .nav-link {
   padding: 0.2rem 0.4rem;
   max-width: 105px;
@@ -18,4 +22,14 @@ a.nav-link {
 
 a.nav-link.active {
   border-bottom: 3px solid #fff;
+}
+
+.top-nav {
+  padding: 5px;
+}
+
+.top-left-nav img {
+  width: 25px;
+  float: right;
+  margin-left: 5px;
 }
