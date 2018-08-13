@@ -203,6 +203,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _helpers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers.service */ "./src/app/common-services/helpers.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -216,17 +217,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var httpOptions = {
     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
 };
 var AuthService = /** @class */ (function () {
-    function AuthService(http) {
+    function AuthService(http, helpersService) {
         this.http = http;
+        this.helpersService = helpersService;
         this.authUrl = 'api/auth'; // URL to web api
     }
     AuthService.prototype.login = function (email, password) {
         var _this = this;
         return this.http.post(this.authUrl, { 'email': email, 'password': password }, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (result) { return _this.log("authenticate user"); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('authenticate user')));
+    };
+    AuthService.prototype.logout = function () {
+        this.helpersService.setStorageProperty("user", null);
     };
     AuthService.prototype.log = function (message) {
         console.log('AuthService: ' + message);
@@ -247,7 +253,8 @@ var AuthService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _helpers_service__WEBPACK_IMPORTED_MODULE_4__["HelpersService"]])
     ], AuthService);
     return AuthService;
 }());
@@ -377,7 +384,7 @@ var DebtsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".date-header {\r\n  font-weight: bold;\r\n  color: #6f6f6f;\r\n}\r\n\r\n.close { \r\n  float: none;\r\n}\r\n"
 
 /***/ }),
 
@@ -388,7 +395,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses; let i = index\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"deleteExpense(expense, i)\">\n                <span aria-hidden=\"true\">&times;</span>\n              </button>\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses; let i = index\">\n        <div>\n          <div class=\"date-header\">\n            {{day.date | date}}\n          </div>\n          <div *ngFor=\"let expense of day.expenses\" class=\"row\">\n            <div class=\"col-9\">\n              {{expense.description}}\n            </div>\n            <div class=\"col-2 negative\">\n              {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n            </div>\n            <div class=\"col-1\">\n              <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"deleteExpense(expense, i)\">\n                <span aria-hidden=\"true\">&times;</span>\n              </button>\n            </div>\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
 
 /***/ }),
 
@@ -446,8 +453,7 @@ var ExpensesComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-expenses',
             template: __webpack_require__(/*! ./expenses.component.html */ "./src/app/secure-app/expenses/expenses.component.html"),
-            styles: [__webpack_require__(/*! ./expenses.component.css */ "./src/app/secure-app/expenses/expenses.component.css")],
-            styles: ['.close { float: none; }']
+            styles: [__webpack_require__(/*! ./expenses.component.css */ "./src/app/secure-app/expenses/expenses.component.css")]
         }),
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_2__["ExpenseService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
@@ -826,7 +832,7 @@ var SecureAppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.custom-nav .vertical-align {\r\n  line-height: 45px;\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n\r\n.top-nav {\r\n  padding: 5px;\r\n}\r\n\r\n.top-left-nav img {\r\n  width: 23px;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.popover {\r\n  top: 36px;\r\n  left: 68%;\r\n}\r\n"
+module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff;\r\n  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.custom-nav .vertical-align {\r\n  line-height: 45px;\r\n}\r\n\r\n.nav-link {\r\n  padding: 0.2rem 0.4rem;\r\n  max-width: 105px;\r\n  text-align: center;\r\n  max-height: 56px;\r\n  min-height: 56px;\r\n}\r\n\r\na.nav-link {\r\n  color: #fff;\r\n}\r\n\r\na.nav-link.active {\r\n  border-bottom: 3px solid #fff;\r\n}\r\n\r\n.top-nav {\r\n  padding: 5px;\r\n}\r\n\r\n.top-left-nav img {\r\n  width: 23px;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.popover {\r\n  top: 36px;\r\n  left: 68%;\r\n}\r\n\r\n.popover div {\r\n  margin: 0 0 10px;\r\n}\r\n\r\n.popover div:last-child {\r\n  margin: 0;\r\n}\r\n"
 
 /***/ }),
 
@@ -837,7 +843,7 @@ module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding\">Intellginet Expense Manager</div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@heroState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div>Profile settings</div>\r\n            <div>Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
+module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding\">Intellginet Expense Manager</div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@heroState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div>Profile settings</div>\r\n            <div (click)=\"logout()\">Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -853,10 +859,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecureAppComponent", function() { return SecureAppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
-/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
-/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var _modals_modal_content__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modals/modal-content */ "./src/app/secure-app/modals/modal-content.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var _modals_modal_content__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals/modal-content */ "./src/app/secure-app/modals/modal-content.ts");
+/* harmony import */ var _common_services_auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common-services/auth.service */ "./src/app/common-services/auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -872,12 +880,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var SecureAppComponent = /** @class */ (function () {
-    function SecureAppComponent(balanceService, helpersService, modalService) {
+    function SecureAppComponent(balanceService, helpersService, modalService, authService, router) {
         var _this = this;
         this.balanceService = balanceService;
         this.helpersService = helpersService;
         this.modalService = modalService;
+        this.authService = authService;
+        this.router = router;
         this.balanceStateClass = '';
         this.state = "inactive";
         this.warningTitle = "Warning!";
@@ -929,13 +941,17 @@ var SecureAppComponent = /** @class */ (function () {
         }
     };
     SecureAppComponent.prototype.showPopup = function (title, text, headerClassName) {
-        var modalRef = this.modalService.open(_modals_modal_content__WEBPACK_IMPORTED_MODULE_5__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modal_content__WEBPACK_IMPORTED_MODULE_6__["NgbdModalContent"]);
         modalRef.componentInstance.title = title;
         modalRef.componentInstance.text = text;
         modalRef.componentInstance.headerClassName = headerClassName;
     };
     SecureAppComponent.prototype.toggleSideMenu = function () {
         this.state = this.state === "active" ? "inactive" : "active";
+    };
+    SecureAppComponent.prototype.logout = function () {
+        this.authService.logout();
+        this.router.navigate(['/login']);
     };
     SecureAppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -954,9 +970,11 @@ var SecureAppComponent = /** @class */ (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_2__["BalanceService"],
-            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_3__["HelpersService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_balance_service__WEBPACK_IMPORTED_MODULE_3__["BalanceService"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__["HelpersService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"],
+            _common_services_auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], SecureAppComponent);
     return SecureAppComponent;
 }());

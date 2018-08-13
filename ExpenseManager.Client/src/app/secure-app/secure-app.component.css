@@ -38,3 +38,11 @@ a.nav-link.active {
   top: 36px;
   left: 68%;
 }
+
+.popover div {
+  margin: 0 0 10px;
+}
+
+.popover div:last-child {
+  margin: 0;
+}

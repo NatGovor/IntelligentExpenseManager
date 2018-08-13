@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BalanceService } from './services/balance.service';
 import { HelpersService } from '../common-services/helpers.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modal-content';
+import { AuthService } from '../common-services/auth.service';
 
 @Component({
   templateUrl: './secure-app.component.html',
@@ -37,7 +39,9 @@ export class SecureAppComponent implements OnInit, OnDestroy {
   constructor(
     private balanceService: BalanceService,
     private helpersService: HelpersService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.subscription = balanceService.balanceUpdated$.subscribe(
       state => {
@@ -95,6 +99,11 @@ export class SecureAppComponent implements OnInit, OnDestroy {
 
   toggleSideMenu() {
     this.state = this.state  === "active" ? "inactive" : "active";
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

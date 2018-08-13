@@ -2,12 +2,21 @@
   <ul *ngIf="dayExpenses" class="items-list">
       <li *ngFor="let day of dayExpenses; let i = index">
         <div>
-          {{day.date | date}}
-          <div *ngFor="let expense of day.expenses">
-            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}
-            <button type="button" class="close" aria-label="Close" (click)="deleteExpense(expense, i)">
+          <div class="date-header">
+            {{day.date | date}}
+          </div>
+          <div *ngFor="let expense of day.expenses" class="row">
+            <div class="col-9">
+              {{expense.description}}
+            </div>
+            <div class="col-2 negative">
+              {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}
+            </div>
+            <div class="col-1">
+              <button type="button" class="close" aria-label="Close" (click)="deleteExpense(expense, i)">
                 <span aria-hidden="true">&times;</span>
               </button>
+            </div>
           </div>
         </div>
       </li>

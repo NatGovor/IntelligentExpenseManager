@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../secure-app/models/user';
 import { AuthResult } from '../unsecure-app/models/auth-result';
+import { HelpersService } from './helpers.service';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,13 +18,19 @@ export class AuthService {
   private authUrl = 'api/auth'; // URL to web api
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private helpersService: HelpersService
+  ) { }
 
   login(email: string, password: string): Observable<AuthResult> {
     return this.http.post<Object>(this.authUrl, { 'email': email, 'password': password }, httpOptions).pipe(
       tap((result: AuthResult) => this.log(`authenticate user`)),
       catchError(this.handleError<AuthResult>('authenticate user'))
     );
+  }
+
+  logout() {
+    this.helpersService.setStorageProperty("user", null);
   }
 
   private log(message: string) {
