@@ -60,5 +60,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
             var filter = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(bQuery);
             return _context.Expenses.Find(filter).ToList().OrderByDescending(expense => expense.Date);
         }
+
+        public void Remove(string id)
+        {
+            DeleteResult actionResult = _context.Expenses.DeleteOne(Builders<Expense>.Filter.Eq("Id", id));
+        }
     }
 }

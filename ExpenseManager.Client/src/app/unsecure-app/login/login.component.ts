@@ -1,12 +1,13 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../common-services/auth.service';
 import { HelpersService } from '../../common-services/helpers.service';
+import { User } from '../../secure-app/models/user';
 
 @Component({
   templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string;
   password: string;
 
@@ -15,6 +16,13 @@ export class LoginComponent {
     private authService: AuthService,
     private helpersService: HelpersService
   ) {}
+
+  ngOnInit() {
+    let user = this.helpersService.getStorageProperty("user") as User;
+    if (user) {
+      this.router.navigate(['/user/expenses']);
+    }
+  }
 
   login(): void {
     if (this.email && this.password) {

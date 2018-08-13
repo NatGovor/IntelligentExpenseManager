@@ -44,5 +44,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         {
             return _context.Users.Find(user => user.Email == email).FirstOrDefault();
         }
+
+        public void Remove(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -53,6 +53,15 @@ export class ExpenseService {
     );
   }
 
+  deleteExpense(id: string): Observable<Object> {
+    const url = `${this.expensesUrl}/${id}`;
+
+    return this.http.delete<null>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted expense id=${id}`)),
+      catchError(this.handleError<any>('deleteExpense'))
+    );
+  }
+
   private log(message: string) {
     console.log('ExpenseService: ' + message);
   }

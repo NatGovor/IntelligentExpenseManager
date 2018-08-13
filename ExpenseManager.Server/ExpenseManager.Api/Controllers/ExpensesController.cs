@@ -120,5 +120,18 @@ namespace ExpenseManager_Server.Controllers
 
             return CreatedAtRoute("GetExpense", new { id = expense.Id }, expense);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            var expense = _expenseRepository.GetById(id);
+            if (expense == null)
+            {
+                return NotFound();
+            }
+
+            _expenseRepository.Remove(id);
+            return NoContent();
+        }
     }
 }

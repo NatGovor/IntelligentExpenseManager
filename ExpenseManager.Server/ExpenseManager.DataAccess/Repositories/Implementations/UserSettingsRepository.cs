@@ -39,5 +39,10 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
         {
             throw new NotImplementedException();
         }
+
+        public void Remove(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -385,7 +385,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <ul *ngIf=\"dayExpenses\" class=\"items-list\">\n      <li *ngFor=\"let day of dayExpenses; let i = index\">\n        <div>\n          {{day.date | date}}\n          <div *ngFor=\"let expense of day.expenses\">\n            {{expense.description}} {{expense.amount | currency:'GBP':'symbol':'1.2-2'}}\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"deleteExpense(expense, i)\">\n                <span aria-hidden=\"true\">&times;</span>\n              </button>\n          </div>\n        </div>\n      </li>\n    </ul>\n</div>\n<div class=\"circle-btn-wrapper\">\n    <div class=\"circle-btn\" (click)=\"gotoNewExpense()\">+</div>\n</div>\n"
 
 /***/ }),
 
@@ -432,11 +432,19 @@ var ExpensesComponent = /** @class */ (function () {
     ExpensesComponent.prototype.gotoNewExpense = function () {
         this.router.navigate(['/user/new-expense']);
     };
+    ExpensesComponent.prototype.deleteExpense = function (expense, index) {
+        this.dayExpenses[index].expenses = this.dayExpenses[index].expenses.filter(function (e) { return e !== expense; });
+        if (this.dayExpenses[index].expenses.length == 0) {
+            this.dayExpenses.splice(index, 1);
+        }
+        this.expenseService.deleteExpense(expense.id).subscribe();
+    };
     ExpensesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-expenses',
             template: __webpack_require__(/*! ./expenses.component.html */ "./src/app/secure-app/expenses/expenses.component.html"),
-            styles: [__webpack_require__(/*! ./expenses.component.css */ "./src/app/secure-app/expenses/expenses.component.css")]
+            styles: [__webpack_require__(/*! ./expenses.component.css */ "./src/app/secure-app/expenses/expenses.component.css")],
+            styles: ['.close { float: none; }']
         }),
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_2__["ExpenseService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
@@ -1152,6 +1160,11 @@ var ExpenseService = /** @class */ (function () {
         var _this = this;
         return this.http.post(this.expensesUrl, expense, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (expense) { return _this.log("added expense w/ id=" + expense.id); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('addExpense')));
     };
+    ExpenseService.prototype.deleteExpense = function (id) {
+        var _this = this;
+        var url = this.expensesUrl + "/" + id;
+        return this.http.delete(url, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (_) { return _this.log("deleted expense id=" + id); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('deleteExpense')));
+    };
     ExpenseService.prototype.log = function (message) {
         console.log('ExpenseService: ' + message);
     };
@@ -1404,6 +1417,12 @@ var LoginComponent = /** @class */ (function () {
         this.authService = authService;
         this.helpersService = helpersService;
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        var user = this.helpersService.getStorageProperty("user");
+        if (user) {
+            this.router.navigate(['/user/expenses']);
+        }
+    };
     LoginComponent.prototype.login = function () {
         var _this = this;
         if (this.email && this.password) {
