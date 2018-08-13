@@ -412,6 +412,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/expense.service */ "./src/app/secure-app/services/expense.service.ts");
+/* harmony import */ var _services_balance_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/balance.service */ "./src/app/secure-app/services/balance.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -424,10 +425,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ExpensesComponent = /** @class */ (function () {
-    function ExpensesComponent(expenseService, router) {
+    function ExpensesComponent(expenseService, router, balanceService) {
         this.expenseService = expenseService;
         this.router = router;
+        this.balanceService = balanceService;
     }
     ExpensesComponent.prototype.ngOnInit = function () {
         this.getExpenses();
@@ -443,11 +446,23 @@ var ExpensesComponent = /** @class */ (function () {
         this.router.navigate(['/user/new-expense']);
     };
     ExpensesComponent.prototype.deleteExpense = function (expense, index) {
+        var _this = this;
         this.dayExpenses[index].expenses = this.dayExpenses[index].expenses.filter(function (e) { return e !== expense; });
         if (this.dayExpenses[index].expenses.length == 0) {
             this.dayExpenses.splice(index, 1);
         }
-        this.expenseService.deleteExpense(expense.id).subscribe();
+        this.expenseService.deleteExpense(expense.id).subscribe(function (_) {
+            _this.balanceService.checkBalance(expense.date)
+                .subscribe(function (result) {
+                console.log(result);
+                // if expense belongs to current month => update state of the app
+                var currentDate = new Date();
+                var expenseDate = new Date(expense.date);
+                if (currentDate.getMonth() == expenseDate.getMonth()) {
+                    _this.balanceService.updateBalance(result);
+                }
+            });
+        });
     };
     ExpensesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -456,7 +471,8 @@ var ExpensesComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./expenses.component.css */ "./src/app/secure-app/expenses/expenses.component.css")]
         }),
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_2__["ExpenseService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_balance_service__WEBPACK_IMPORTED_MODULE_3__["BalanceService"]])
     ], ExpensesComponent);
     return ExpensesComponent;
 }());
