@@ -29,7 +29,7 @@ namespace ExpenseManager.DataAccess.Services
             DateTime startDate = new DateTime(date.Year, date.Month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
-            // Calculate the numbe of days in the month
+            // Calculate the number of days in the month
             int weekDaysCount = 0;
             int saturdaysCount = 0;
             int sundaysCount = 0;
