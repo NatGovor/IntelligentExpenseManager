@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   logout() {
-    this.helpersService.setStorageProperty("user", null);
+    this.helpersService.clearLocalStorage();
   }
 
   private log(message: string) {

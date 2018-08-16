@@ -24,4 +24,8 @@ export class HelpersService {
         localStorage.setItem(name, typeof (value) === 'string' ? value : JSON.stringify(value));
     }
   }
+
+  clearLocalStorage(): void {
+    localStorage.clear();
+  }
 }
