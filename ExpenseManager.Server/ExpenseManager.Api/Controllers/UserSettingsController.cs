@@ -46,5 +46,17 @@ namespace ExpenseManager.Api.Controllers
             _userSettingsRepository.Add(userSettings);
             return CreatedAtRoute("GetUserSettings", new { id = userSettings.UserId }, userSettings);
         }
+
+        [HttpPut]
+        public IActionResult Update(UserSettings userSettings)
+        {
+            if (_userSettingsRepository.GetById(userSettings.UserId) == null)
+            {
+                return NotFound();
+            }
+
+            _userSettingsRepository.Update(userSettings);
+            return NoContent();
+        }
     }
 }

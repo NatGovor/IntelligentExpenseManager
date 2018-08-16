@@ -54,7 +54,7 @@ namespace ExpenseManager.DataAccess
             }
         }
 
-        public IMongoCollection<UserSettings> UserBalances
+        public IMongoCollection<UserSettings> UserSettings
         {
             get
             {

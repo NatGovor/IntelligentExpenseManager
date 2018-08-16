@@ -21,23 +21,31 @@ namespace ExpenseManager.DataAccess.Repositories.Implementations
 
         public IEnumerable<UserSettings> GetAll()
         {
-            return _context.UserBalances.Find(_ => true).ToList();
+            return _context.UserSettings.Find(_ => true).ToList();
         }
 
         public UserSettings GetById(string id)
         {
-            return _context.UserBalances.Find(x => x.UserId == id).FirstOrDefault();
+            return _context.UserSettings.Find(x => x.UserId == id).FirstOrDefault();
         }
 
         public string Add(UserSettings item)
         {
-            _context.UserBalances.InsertOne(item);
+            _context.UserSettings.InsertOne(item);
             return item.UserId;
         }
 
         public void Update(UserSettings item)
         {
-            throw new NotImplementedException();
+            var filter = Builders<UserSettings>.Filter.Eq(x => x.UserId, item.UserId);
+            var update = Builders<UserSettings>.Update
+                            .Set(x => x.MinWeekday, item.MinWeekday)
+                            .Set(x => x.MinSaturday, item.MinSaturday)
+                            .Set(x => x.MinSunday, item.MinSunday)
+                            .Set(x => x.MaximumToSpend, item.MaximumToSpend)
+                            .Set(x => x.Percentage, item.Percentage);
+
+            UpdateResult actionResult = _context.UserSettings.UpdateOne(filter, update);
         }
 
         public void Remove(string id)

@@ -13,6 +13,7 @@ import { DebtsComponent } from './debts/debts.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MakePositivePipe } from './pipes/make-positive.pipe';
 import { NewExpenseComponent } from './new-expense/new-expense.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { NewExpenseComponent } from './new-expense/new-expense.component';
     ReportsComponent,
     MakePositivePipe,
     NewExpenseComponent,
-    NgbdModalContent
+    NgbdModalContent,
+    ProfileSettingsComponent
   ],
   entryComponents: [
     NgbdModalContent

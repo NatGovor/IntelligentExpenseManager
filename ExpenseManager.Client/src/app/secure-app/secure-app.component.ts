@@ -12,7 +12,7 @@ import { AuthService } from '../common-services/auth.service';
   templateUrl: './secure-app.component.html',
   styleUrls: ['./secure-app.component.css'],
   animations: [
-    trigger('heroState', [
+    trigger('menuState', [
       state('inactive', style({
         transform: 'translateY(-200%)'
       })),
@@ -104,6 +104,11 @@ export class SecureAppComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  gotoProfile() {
+    this.state = 'inactive';
+    this.router.navigate(['/user/profile-settings'])
   }
 
 }

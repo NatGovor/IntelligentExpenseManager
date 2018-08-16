@@ -711,6 +711,83 @@ var MakePositivePipe = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/secure-app/profile-settings/profile-settings.component.css":
+/*!****************************************************************************!*\
+  !*** ./src/app/secure-app/profile-settings/profile-settings.component.css ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/secure-app/profile-settings/profile-settings.component.html":
+/*!*****************************************************************************!*\
+  !*** ./src/app/secure-app/profile-settings/profile-settings.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container main\" *ngIf=\"settings\">\n  <h5>Profile Settings</h5>\n  <form (ngSubmit)=\"updateUserSettings()\" #userSettingsForm=\"ngForm\">\n\n    <div class=\"form-group row\">\n        <label for=\"minWeekday\" class=\"col-7 col-form-label\">Minimum for weekday (£)</label>\n        <div class=\"col-5\">\n          <input type=\"number\" class=\"form-control\" id=\"minWeekday\"\n            required\n            [(ngModel)]=\"settings.minWeekday\" name=\"minWeekday\"/>\n        </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"minSaturday\" class=\"col-7 col-form-label\">Minimum for Saturday (£)</label>\n      <div class=\"col-5\">\n        <input type=\"number\" class=\"form-control\" id=\"minSaturday\"\n          required\n          [(ngModel)]=\"settings.minSaturday\" name=\"minSaturday\"/>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"minSunday\" class=\"col-7 col-form-label\">Minimum for Sunday (£)</label>\n      <div class=\"col-5\">\n        <input type=\"number\" class=\"form-control\" id=\"minSunday\"\n          required\n          [(ngModel)]=\"settings.minSunday\" name=\"minSunday\"/>\n      </div>\n    </div>\n\n    <br/>\n\n    <div class=\"form-group\">\n      <label for=\"maximumToSpend\">Maximum to spend in month (£)</label>\n      <input type=\"number\" class=\"form-control\" id=\"maximumToSpend\"\n        required\n        [(ngModel)]=\"settings.maximumToSpend\" name=\"maximumToSpend\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"percentage\">Warning percentage (%)</label>\n      <input type=\"number\" class=\"form-control\" id=\"percentage\"\n        required\n        [(ngModel)]=\"settings.percentage\" name=\"percentage\"/>\n    </div>\n  \n\n    <br/>\n\n    <button type=\"submit\"\n      class=\"btn btn-long\"\n      [disabled]=\"!userSettingsForm.form.valid\">\n      Save\n    </button>\n  </form>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/secure-app/profile-settings/profile-settings.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/secure-app/profile-settings/profile-settings.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: ProfileSettingsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileSettingsComponent", function() { return ProfileSettingsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_userSettings_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/userSettings.service */ "./src/app/secure-app/services/userSettings.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ProfileSettingsComponent = /** @class */ (function () {
+    function ProfileSettingsComponent(userSettingsService) {
+        this.userSettingsService = userSettingsService;
+    }
+    ProfileSettingsComponent.prototype.ngOnInit = function () {
+        this.getUserSettings();
+    };
+    ProfileSettingsComponent.prototype.getUserSettings = function () {
+        var _this = this;
+        this.userSettingsService.getUserSettings()
+            .subscribe(function (settings) {
+            _this.settings = settings;
+        });
+    };
+    ProfileSettingsComponent.prototype.updateUserSettings = function () {
+        this.userSettingsService.updateUserSettings(this.settings).subscribe();
+    };
+    ProfileSettingsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-profile-settings',
+            template: __webpack_require__(/*! ./profile-settings.component.html */ "./src/app/secure-app/profile-settings/profile-settings.component.html"),
+            styles: [__webpack_require__(/*! ./profile-settings.component.css */ "./src/app/secure-app/profile-settings/profile-settings.component.css")]
+        }),
+        __metadata("design:paramtypes", [_services_userSettings_service__WEBPACK_IMPORTED_MODULE_1__["UserSettingsService"]])
+    ], ProfileSettingsComponent);
+    return ProfileSettingsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/secure-app/reports/reports.component.css":
 /*!**********************************************************!*\
   !*** ./src/app/secure-app/reports/reports.component.css ***!
@@ -792,12 +869,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _debts_debts_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./debts/debts.component */ "./src/app/secure-app/debts/debts.component.ts");
 /* harmony import */ var _reports_reports_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reports/reports.component */ "./src/app/secure-app/reports/reports.component.ts");
 /* harmony import */ var _new_expense_new_expense_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./new-expense/new-expense.component */ "./src/app/secure-app/new-expense/new-expense.component.ts");
+/* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "./src/app/secure-app/profile-settings/profile-settings.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -818,7 +897,8 @@ var secureAppRoutes = [
                     { path: 'shared-expenses', component: _shared_expenses_shared_expenses_component__WEBPACK_IMPORTED_MODULE_4__["SharedExpensesComponent"] },
                     { path: 'debts', component: _debts_debts_component__WEBPACK_IMPORTED_MODULE_5__["DebtsComponent"] },
                     { path: 'reports', component: _reports_reports_component__WEBPACK_IMPORTED_MODULE_6__["ReportsComponent"] },
-                    { path: 'new-expense', component: _new_expense_new_expense_component__WEBPACK_IMPORTED_MODULE_7__["NewExpenseComponent"] }
+                    { path: 'new-expense', component: _new_expense_new_expense_component__WEBPACK_IMPORTED_MODULE_7__["NewExpenseComponent"] },
+                    { path: 'profile-settings', component: _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_8__["ProfileSettingsComponent"] }
                 ]
             }
         ]
@@ -862,7 +942,7 @@ module.exports = ".custom-nav {\r\n  background-color: #5bc5a7;\r\n  color: #fff
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding header\">\r\n          <img src=\"assets/wallet-icon.png\">\r\n          <div class=\"header-text\">Intelligent Expense Manager</div>\r\n        </div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@heroState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div>Profile settings</div>\r\n            <div (click)=\"logout()\">Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
+module.exports = "<div class=\"custom-nav\" [ngClass]=\"balanceStateClass\">\r\n    <div class=\"row top-nav no-margin\">\r\n      <div class=\"col-9 no-padding header\">\r\n          <img src=\"assets/wallet-icon.png\">\r\n          <div class=\"header-text\">Intelligent Expense Manager</div>\r\n        </div>\r\n      <div class=\"col-3 top-left-nav no-padding\">\r\n        <img src=\"assets/menu.png\" (click)=\"toggleSideMenu()\">\r\n        <img src=\"assets/notification.png\"/>\r\n      </div>\r\n      <div class=\"popover\" [@menuState]=\"state\">\r\n          <div class=\"popover-body\">\r\n            <div (click)=\"gotoProfile()\">Profile settings</div>\r\n            <div (click)=\"logout()\">Log out</div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <nav class=\"row no-margin\">\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link active\" routerLink=\"/user/expenses\" routerLinkActive=\"active\">All expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding\">\r\n        <a class=\"nav-link\" routerLink=\"/user/shared-expenses\" routerLinkActive=\"active\">Shared expenses</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/debts\" routerLinkActive=\"active\">Debts</a>\r\n      </div>\r\n      <div class=\"col-3 no-padding vertical-align\">\r\n        <a class=\"nav-link\" routerLink=\"/user/reports\" routerLinkActive=\"active\">Reports</a>\r\n      </div>\r\n    </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n\r\n<ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n  <div class=\"modal-header\">\r\n    <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n  </div>\r\n  <div class=\"modal-body\">\r\n    <form>\r\n      <div class=\"form-group\">\r\n        <label for=\"dateOfBirth\">Date of birth</label>\r\n      </div>\r\n    </form>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-outline-black\" (click)=\"c('Save click')\">Save</button>\r\n  </div>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -972,12 +1052,16 @@ var SecureAppComponent = /** @class */ (function () {
         this.authService.logout();
         this.router.navigate(['/login']);
     };
+    SecureAppComponent.prototype.gotoProfile = function () {
+        this.state = 'inactive';
+        this.router.navigate(['/user/profile-settings']);
+    };
     SecureAppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./secure-app.component.html */ "./src/app/secure-app/secure-app.component.html"),
             styles: [__webpack_require__(/*! ./secure-app.component.css */ "./src/app/secure-app/secure-app.component.css")],
             animations: [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('heroState', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('menuState', [
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('inactive', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
                         transform: 'translateY(-200%)'
                     })),
@@ -1024,12 +1108,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reports_reports_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./reports/reports.component */ "./src/app/secure-app/reports/reports.component.ts");
 /* harmony import */ var _pipes_make_positive_pipe__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pipes/make-positive.pipe */ "./src/app/secure-app/pipes/make-positive.pipe.ts");
 /* harmony import */ var _new_expense_new_expense_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./new-expense/new-expense.component */ "./src/app/secure-app/new-expense/new-expense.component.ts");
+/* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "./src/app/secure-app/profile-settings/profile-settings.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1061,7 +1147,8 @@ var SecureAppModule = /** @class */ (function () {
                 _reports_reports_component__WEBPACK_IMPORTED_MODULE_9__["ReportsComponent"],
                 _pipes_make_positive_pipe__WEBPACK_IMPORTED_MODULE_10__["MakePositivePipe"],
                 _new_expense_new_expense_component__WEBPACK_IMPORTED_MODULE_11__["NewExpenseComponent"],
-                _modals_modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]
+                _modals_modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"],
+                _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__["ProfileSettingsComponent"]
             ],
             entryComponents: [
                 _modals_modal_content__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]
@@ -1320,6 +1407,86 @@ var SharedExpenseService = /** @class */ (function () {
             _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__["HelpersService"]])
     ], SharedExpenseService);
     return SharedExpenseService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/secure-app/services/userSettings.service.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/secure-app/services/userSettings.service.ts ***!
+  \*************************************************************/
+/*! exports provided: UserSettingsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSettingsService", function() { return UserSettingsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common-services/helpers.service */ "./src/app/common-services/helpers.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+};
+var UserSettingsService = /** @class */ (function () {
+    function UserSettingsService(http, helpersService) {
+        this.http = http;
+        this.helpersService = helpersService;
+        this.userSettingsUrl = 'api/usersettings'; // URL to web api
+    }
+    UserSettingsService.prototype.getUserSettings = function () {
+        var _this = this;
+        var user = this.helpersService.getStorageProperty("user");
+        var url = this.userSettingsUrl + "/" + user.id;
+        return this.http.get(url)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (userSettings) {
+            _this.log("fetched userSettings");
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getUserSettings', [])));
+    };
+    UserSettingsService.prototype.updateUserSettings = function (userSettings) {
+        var _this = this;
+        return this.http.put(this.userSettingsUrl, userSettings, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (_) { return _this.log("updated userSettings id=" + userSettings.userId); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('updateUserSettings')));
+    };
+    UserSettingsService.prototype.log = function (message) {
+        console.log('UserSettingsService: ' + message);
+    };
+    UserSettingsService.prototype.handleError = function (operation, result) {
+        var _this = this;
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            _this.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
+    };
+    UserSettingsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _common_services_helpers_service__WEBPACK_IMPORTED_MODULE_4__["HelpersService"]])
+    ], UserSettingsService);
+    return UserSettingsService;
 }());
 
 

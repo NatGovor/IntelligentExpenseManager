@@ -1,0 +1,54 @@
+<div class="container main" *ngIf="settings">
+  <h5>Profile Settings</h5>
+  <form (ngSubmit)="updateUserSettings()" #userSettingsForm="ngForm">
+
+    <div class="form-group row">
+        <label for="minWeekday" class="col-7 col-form-label">Minimum for weekday (£)</label>
+        <div class="col-5">
+          <input type="number" class="form-control" id="minWeekday"
+            required
+            [(ngModel)]="settings.minWeekday" name="minWeekday"/>
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="minSaturday" class="col-7 col-form-label">Minimum for Saturday (£)</label>
+      <div class="col-5">
+        <input type="number" class="form-control" id="minSaturday"
+          required
+          [(ngModel)]="settings.minSaturday" name="minSaturday"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="minSunday" class="col-7 col-form-label">Minimum for Sunday (£)</label>
+      <div class="col-5">
+        <input type="number" class="form-control" id="minSunday"
+          required
+          [(ngModel)]="settings.minSunday" name="minSunday"/>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <label for="maximumToSpend">Maximum to spend in month (£)</label>
+      <input type="number" class="form-control" id="maximumToSpend"
+        required
+        [(ngModel)]="settings.maximumToSpend" name="maximumToSpend"/>
+    </div>
+    <div class="form-group">
+      <label for="percentage">Warning percentage (%)</label>
+      <input type="number" class="form-control" id="percentage"
+        required
+        [(ngModel)]="settings.percentage" name="percentage"/>
+    </div>
+  
+
+    <br/>
+
+    <button type="submit"
+      class="btn btn-long"
+      [disabled]="!userSettingsForm.form.valid">
+      Save
+    </button>
+  </form>
+</div>

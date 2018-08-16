@@ -8,9 +8,9 @@
         <img src="assets/menu.png" (click)="toggleSideMenu()">
         <img src="assets/notification.png"/>
       </div>
-      <div class="popover" [@heroState]="state">
+      <div class="popover" [@menuState]="state">
           <div class="popover-body">
-            <div>Profile settings</div>
+            <div (click)="gotoProfile()">Profile settings</div>
             <div (click)="logout()">Log out</div>
           </div>
       </div>
