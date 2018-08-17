@@ -26,10 +26,8 @@ namespace ExpenseManager.DataAccess.Services
             UserSettings userSettings = _userSettingsRepository.GetById(userId);
 
             // Get the range of the month
-            //DateTime startDate = new DateTime(date.Year, date.Month, 1);
-            //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-            DateTime startDate = new DateTime(2018, 8, 6);
-            DateTime endDate = new DateTime(2018, 8, 12);
+            DateTime startDate = new DateTime(date.Year, date.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
             // Calculate the number of days in the month
             int weekDaysCount = 0;
@@ -57,11 +55,10 @@ namespace ExpenseManager.DataAccess.Services
             decimal safetyPillow = userSettings.MaximumToSpend - balance;
             decimal initialSafetyPillow = safetyPillow;
 
-            /*if (date.Month == DateTime.Now.Month)
+            if (date.Month == DateTime.Now.Month)
             {
                 endDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            }*/
-            endDate = date;
+            }
 
             for (DateTime day = startDate; day <= endDate; day = day.AddDays(1))
             {
